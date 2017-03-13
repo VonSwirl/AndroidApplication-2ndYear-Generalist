@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Generalist</string>
+    <string name="title_activity_display_lists">displayLists</string>
+    <string name="action_settings">Settings</string>
+    <string name="work_rest_and_play">WORK REST AND PLAY!</string>
+    <string name="add_lists">Add Lists</string>
+    <string name="view_lists">View Lists</string>
+</resources>
