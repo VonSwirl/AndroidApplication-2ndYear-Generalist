@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         //Get a reference to the Button object in the layout (XML) file (the button that is linked on the screen)
         final Context context = this;
         Button addBtn = (Button) findViewById(R.id.addButton);
