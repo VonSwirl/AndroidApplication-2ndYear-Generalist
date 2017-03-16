@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.Toast;
 
 //import com.google.android.gms.appindexing.Action;
 //import com.google.android.gms.appindexing.AppIndex;
@@ -39,22 +41,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
         );
-        //Get a reference to the Button object in the layout (XML) file (the button that is linked on the screen)
-        //    final Context cont = this;
-        //    Button calbut = (Button) findViewById(R.id.button5);
-
-        //Add event listener to button
-        //    calbut.setOnClickListener(
-        //            new View.OnClickListener() {
-        //                @Override
-        //                public void onClick(View v) {
-        //                    Intent intent = new Intent(cont, Calendar.class); //Links the class to the intended place to go
-        //                    startActivity(intent); //Starts that activity
-
-        //                }
-        //            }
-
-        //    );
 
         //Get a reference to the Button object in the layout (XML) file (the button that is linked on the screen)
         final Context contxt = this;
@@ -70,6 +56,26 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        class CalendarActivity extends AppCompatActivity {
+
+            CalendarView calendar;
+
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_main);
+
+                calendar = (CalendarView) findViewById(R.id.calendar);
+                calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+                    @Override
+                    public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
+                        Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+                    }});
+            }
+        }
+        //Creating calendar for dashboard
 
 
         //Intent intent2 = new Intent(context, ViewList.class); //Links the class to the indened place to go
@@ -116,4 +122,3 @@ public class MainActivity extends AppCompatActivity {
      client.disconnect();
      }*/
 }
-
