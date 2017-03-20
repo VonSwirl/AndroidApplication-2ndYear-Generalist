@@ -14,12 +14,10 @@
         android:text="Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp"
-        android:id="@+id/save_button1" />
+        android:id="@+id/save_button1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,7 +25,7 @@
         android:text="List Name:"
         android:id="@+id/textView5"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:layout_alignBaseline="@+id/editTextName1"
         android:layout_alignBottom="@+id/editTextName1"
         android:layout_alignParentStart="true" />
@@ -50,6 +48,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView6"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/editTextName1"
         android:layout_alignParentStart="true" />
 
@@ -60,9 +59,9 @@
         android:ems="10"
         android:id="@+id/editTextContents1"
         android:hint="Contents..."
-        android:layout_marginTop="13dp"
-        android:layout_below="@+id/textView6"
-        android:layout_alignParentStart="true" />
+        android:layout_alignBaseline="@+id/textView6"
+        android:layout_alignBottom="@+id/textView6"
+        android:layout_alignStart="@+id/editTextName1" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -71,9 +70,9 @@
         android:ems="10"
         android:id="@+id/editTextCat1"
         android:hint="Shopping..."
-        android:layout_marginBottom="18dp"
-        android:layout_above="@+id/save_button1"
-        android:layout_toEndOf="@+id/textView7" />
+        android:layout_alignBaseline="@+id/textView7"
+        android:layout_alignBottom="@+id/textView7"
+        android:layout_alignStart="@+id/editTextContents1" />
 
     <TextView
         android:text="Category:"
@@ -81,8 +80,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView7"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:layout_alignBaseline="@+id/editTextCat1"
-        android:layout_alignBottom="@+id/editTextCat1"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/editTextContents1"
         android:layout_alignParentStart="true" />
 
     <Button
@@ -92,6 +91,5 @@
         android:layout_marginRight="26dp"
         android:id="@+id/cancel_button1"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/editTextContents1"
-        android:layout_marginStart="24dp" />
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
