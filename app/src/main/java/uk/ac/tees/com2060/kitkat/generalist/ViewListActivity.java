@@ -3,10 +3,13 @@ package uk.ac.tees.com2060.kitkat.generalist;
 /* Created by Jerome Hurley (Q5094757) 12-Mar-2016 */
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +26,8 @@ import java.util.List;
 
 public class ViewListActivity extends AppCompatActivity {
 
-    DatabaseHandler dh;
+    private DatabaseHandler dh;
+    final Context context = this;
 
     public ViewListActivity() {
     }
@@ -32,6 +36,38 @@ public class ViewListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
+
+        //Adds a Toolbar to this page and gives it a title
+        Toolbar listBar = (Toolbar) findViewById(R.id.listBar);
+        setSupportActionBar(listBar);
+        listBar.setTitleTextColor(Color.WHITE);
+        getSupportActionBar().setTitle(R.string.view_lists);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        //This button is added to the toolbar as a add item icon, see XML attached
+        ImageButton addButton = (ImageButton) findViewById(R.id.addButton);
+        addButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                //Links the class to the intended place to go
+                Intent intent = new Intent(context, Add.class);
+
+                //Starts that activity
+                startActivity(intent);
+            }
+        });
+        //This button is added to the toolbar as a home icon, see XML attached
+        ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Return to Home Screen
+                finish();
+            }
+        });
+
         ListView lv = (ListView) findViewById(R.id.list); //Creating the list view
 
         //Database handling, getting all the items adding them to an array list
@@ -66,7 +102,7 @@ public class ViewListActivity extends AppCompatActivity {
         });
     }
 
-    private class MyListAdapter extends ArrayAdapter<String>{
+    private class MyListAdapter extends ArrayAdapter<String> {
 
         private int layout;
         private List<String> mObjects;
@@ -80,7 +116,7 @@ public class ViewListActivity extends AppCompatActivity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder mainViewholder = null;
-            if(convertView == null) {
+            if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
@@ -109,7 +145,7 @@ public class ViewListActivity extends AppCompatActivity {
         }
     }
 
-    public class ViewHolder{
+    public class ViewHolder {
         ImageView thumbnail;
         TextView title;
         ImageButton editBtn;

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="LanguageInjectionConfiguration">
+    <injection language="AIDL" injector-id="xml">
+      <display-name>application/@theme</display-name>
+      <place><![CDATA[xmlAttribute().withLocalName(string().equalTo("theme")).withNamespace(string().equalTo("http://schemas.android.com/apk/res/android")).withParent(xmlTag().withLocalName(string().equalTo("application")))]]></place>
+    </injection>
+  </component>
+</project>

@@ -4,5 +4,18 @@
     <string name="action_settings">Settings</string>
     <string name="work_rest_and_play">WORK REST AND PLAY!</string>
     <string name="add_lists">Add Lists</string>
-    <string name="view_lists">View Lists</string>
+    <string name="view_lists">All Items</string>
+    <string name="save">Save</string>
+    <string name="name">Name...</string>
+    <string name="list_contents">List Contents:</string>
+    <string name="contents">Contents...</string>
+    <string name="category">Category:</string>
+    <string name="shopping">Shopping...</string>
+    <string name="cancel">Cancel</string>
+    <string name="list_name">List Name:</string>
+    <string name="list__name">List Name:</string>
+    <string name="nameDotdot">Name...</string>
+    <string name="home">Home</string>
+    <string name="edit_item">Edit Item</string>
+    <string name="add_item">Add Item</string>
 </resources>

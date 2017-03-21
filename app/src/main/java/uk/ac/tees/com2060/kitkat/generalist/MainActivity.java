@@ -2,8 +2,10 @@ package uk.ac.tees.com2060.kitkat.generalist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -26,14 +28,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
-
-
+        //Adds a Toolbar to this page and gives it a title
+        Toolbar homeBar = (Toolbar) findViewById(R.id.homeBar);
+        setSupportActionBar(homeBar);
+        homeBar.setTitleTextColor(Color.WHITE);
+        getSupportActionBar().setTitle(R.string.home);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         //Get a reference to the Button object in the layout (XML) file (the button that is linked on the screen)
         final Context context = this;
@@ -81,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
                         Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
-                    }});
+                    }
+                });
             }
         }
         //Creating calendar for dashboard

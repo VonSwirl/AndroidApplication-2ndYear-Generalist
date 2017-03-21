@@ -1,7 +1,9 @@
 package uk.ac.tees.com2060.kitkat.generalist;
 
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,13 @@ public class Editing extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editing);
+
+        //Adds a Toolbar to this page and gives it a title
+        Toolbar editBar = (Toolbar) findViewById(R.id.editBar);
+        setSupportActionBar(editBar);
+        editBar.setTitleTextColor(Color.WHITE);
+        getSupportActionBar().setTitle(R.string.edit_item);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         List<ListInfo> item = new ArrayList<ListInfo>();
 
@@ -36,9 +45,7 @@ public class Editing extends AppCompatActivity {
         contents.setText(item.get(1).toString());
         category.setText(item.get(2).toString());
 
-
         svBtn.setOnClickListener(
-
 
                 new View.OnClickListener() {
 
@@ -60,7 +67,7 @@ public class Editing extends AppCompatActivity {
                 new View.OnClickListener() {
 
                     @Override
-                    public void onClick(View v){
+                    public void onClick(View v) {
                         finish();
                     }
                 }
