@@ -182,7 +182,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public void deleteList(int id) {
+    public void deleteItem(int id) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 

@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_add"
+    android:id="@+id/activity_editing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="uk.ac.tees.com2060.kitkat.generalist.Add">
 
     <android.support.v7.widget.Toolbar
@@ -19,6 +20,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
     </android.support.v7.widget.Toolbar>
+
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -119,5 +121,3 @@
 
     </RelativeLayout>
 
-
-</RelativeLayout>

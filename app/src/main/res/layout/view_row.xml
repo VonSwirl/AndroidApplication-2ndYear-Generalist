@@ -28,7 +28,8 @@
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/btn_dialog"
         android:layout_alignBottom="@+id/list_item_thumbnail"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="del_click" />
 
     <ImageButton
         android:id="@+id/list_item_editBtn"
@@ -37,7 +38,8 @@
         app:srcCompat="@android:drawable/ic_menu_edit"
         android:layout_marginEnd="54dp"
         android:layout_alignTop="@+id/list_item_delBtn"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="edit_click"/>
 
 
 </RelativeLayout>

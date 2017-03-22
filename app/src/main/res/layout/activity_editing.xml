@@ -21,6 +21,7 @@
 
 
     <Button
+
         android:id="@+id/save_button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,10 +30,12 @@
         android:layout_marginStart="21dp"
         android:text="@string/save" />
 
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_alignBaseline="@+id/editTextName1"
         android:layout_alignBottom="@+id/editTextName1"
         android:layout_alignParentStart="true"
@@ -40,10 +43,12 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="18sp" />
 
+
     <EditText
         android:id="@+id/editTextName1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_alignParentTop="true"
         android:layout_marginStart="11dp"
         android:layout_toEndOf="@+id/textView6"
@@ -55,10 +60,12 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editTextName1"
         android:text="List Contents:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
 
     <EditText
         android:id="@+id/editTextContents1"
@@ -68,8 +75,10 @@
         android:layout_below="@+id/textView6"
         android:layout_marginTop="13dp"
         android:ems="10"
+
         android:hint="Contents..."
         android:inputType="textMultiLine" />
+
 
     <EditText
         android:id="@+id/editTextCat1"
@@ -79,13 +88,16 @@
         android:layout_marginBottom="18dp"
         android:layout_toEndOf="@+id/textView7"
         android:ems="10"
+
         android:hint="Shopping..."
         android:inputType="textPersonName" />
+
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_alignBaseline="@+id/editTextCat1"
         android:layout_alignBottom="@+id/editTextCat1"
         android:layout_alignParentStart="true"
@@ -99,5 +111,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="24dp"
         android:layout_toEndOf="@+id/editTextContents1"
-        android:text="Cancel" />
+
+       android:text="Cancel" />
 </RelativeLayout>

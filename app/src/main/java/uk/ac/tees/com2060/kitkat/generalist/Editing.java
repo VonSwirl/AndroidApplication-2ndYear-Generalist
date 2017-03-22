@@ -1,6 +1,10 @@
 package uk.ac.tees.com2060.kitkat.generalist;
 
+
 import android.graphics.Color;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +24,7 @@ public class Editing extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editing);
 
+
         //Adds a Toolbar to this page and gives it a title
         Toolbar editBar = (Toolbar) findViewById(R.id.editBar);
         setSupportActionBar(editBar);
@@ -26,25 +32,32 @@ public class Editing extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.edit_item);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-        List<ListInfo> item = new ArrayList<ListInfo>();
+        //Setting buttons and editTexts
+        Button svBtn = (Button) findViewById(R.id.save_button);
+        Button cnclBtn = (Button) findViewById(R.id.cancel_button);
+        final EditText name = (EditText) findViewById(R.id.editTextName);
+        final EditText category = (EditText) findViewById(R.id.editTextCat);
+        final EditText contents = (EditText) findViewById(R.id.editTextContents);
+
+        Intent intent = getIntent();//Create new getIntent
+        final int position = intent.getIntExtra("position", 0); //Use it to pass the position from "ViewListActivity"
 
         final DatabaseHandler dh = new DatabaseHandler(this);
+        List<ListInfo> item; //Create a new List that will hold the current item
+        item = dh.getOne(position); //Pass the single item from the position into the List
+        for (ListInfo li : item) { //Create ListInfo class and for each item
 
-        final int ID = 0;
+            //get the name, cat and contents
+            String dbName = li.getName();
+            String dbCat = li.getCategory();
+            String dbCont = li.getContents();
 
-        item = dh.getOne(ID);
-
-        Button svBtn = (Button) findViewById(R.id.save_button1);
-        Button cnclBtn = (Button) findViewById(R.id.cancel_button1);
-
-        final EditText name = (EditText) findViewById(R.id.editTextName1);
-        final EditText contents = (EditText) findViewById(R.id.editTextContents1);
-        final EditText category = (EditText) findViewById(R.id.editTextCat1);
-
-        name.setText(item.get(0).toString());
-        contents.setText(item.get(1).toString());
-        category.setText(item.get(2).toString());
-
+            //Set the values to the current ExitText
+            name.setText(dbName);
+            category.setText(dbCat);
+            contents.setText(dbCont);
+        }
+        //Saves current values to db
         svBtn.setOnClickListener(
 
                 new View.OnClickListener() {
@@ -53,16 +66,19 @@ public class Editing extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
+                        //Should there be a try catch around this?
+
                         Log.d("Database:", "Updating Entry...");  //For personal testing
-                        dh.updateByID(ID, name.getText().toString(), contents.getText().toString(), category.getText().toString());
+                        //Position +1 because array list starts at 0. Getting all EditTexts and adding into db
+                        dh.updateByID(position +1, name.getText().toString(), contents.getText().toString(), category.getText().toString());
                         finish();
+
+
                     }
                 }
         );
 
-
-        //This method kills the activity
-        cnclBtn.setOnClickListener(
+        cnclBtn.setOnClickListener( //Cancel current activity
 
                 new View.OnClickListener() {
 
