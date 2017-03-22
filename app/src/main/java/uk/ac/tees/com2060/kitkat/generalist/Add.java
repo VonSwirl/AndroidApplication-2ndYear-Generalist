@@ -37,7 +37,7 @@ public class Add extends AppCompatActivity {
         Button svBtn = (Button) findViewById(R.id.save_button);
         Button cnclBtn = (Button) findViewById(R.id.cancel_button);
 
-        final EditText name = (EditText) findViewById(R.id.addName);
+        final EditText name = (EditText) findViewById(R.id.editTextName);
         final EditText contents = (EditText) findViewById(R.id.editTextContents);
         final EditText category = (EditText) findViewById(R.id.editTextCat);
 
