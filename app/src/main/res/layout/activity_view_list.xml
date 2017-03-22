@@ -1,16 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-tools:context=".ViewListActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".ViewListActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/listBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:addStatesFromChildren="false"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/listBar" />
+
+    <ImageButton
+        android:id="@+id/homeButton"
+        style="@android:style/Widget.DeviceDefault.Light.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_size_16dp"
+        android:layout_marginRight="@dimen/pad_size_16dp"
+        android:background="@color/colorPrimary"
+        android:contentDescription="@string/home"
+        android:src="@drawable/ic_home_dark"
+        android:layout_alignTop="@+id/addButton"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="14dp" />
+
+    <ImageButton
+        android:id="@+id/addButton"
+        style="@android:style/Widget.DeviceDefault.Light.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_size_16dp"
+        android:layout_marginRight="@dimen/pad_size_16dp"
+        android:background="@color/colorPrimary"
+        android:contentDescription="@string/home"
+        android:src="@drawable/ic_action_name"
+        android:layout_above="@+id/list"
+        android:layout_toStartOf="@+id/homeButton"
+        android:layout_marginBottom="11dp" />
 
 </RelativeLayout>

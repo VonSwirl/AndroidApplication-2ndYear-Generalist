@@ -1,7 +1,9 @@
 package uk.ac.tees.com2060.kitkat.generalist;
 
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,17 @@ public class Add extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+
+        //Adds a Toolbar to this page and gives it a title
+        Toolbar addBar = (Toolbar) findViewById(R.id.addBar);
+        setSupportActionBar(addBar);
+        addBar.setTitleTextColor(Color.WHITE);
+        getSupportActionBar().setTitle(R.string.add_item);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        Button svBtn = (Button) findViewById(R.id.save_button);
+        Button cnclBtn = (Button) findViewById(R.id.cancel_button);
+
         final DatabaseHandler dh = new DatabaseHandler(this);
 
         // This section of commented out code was for initial testing of database insertion.
@@ -24,18 +37,16 @@ public class Add extends AppCompatActivity {
 
         //dh.addList(new ListInfo("Shopping Test", "egg, banana, ham", "Shopping"));
 
-        Button svBtn = (Button) findViewById(R.id.save_button);
-        Button cnclBtn = (Button) findViewById(R.id.cancel_button);
 
         final EditText name = (EditText) findViewById(R.id.editTextName);
         final EditText contents = (EditText) findViewById(R.id.editTextContents);
         final EditText category = (EditText) findViewById(R.id.editTextCat);
 
-        Log.d("Database: ", "Reading all lists..." );
+        Log.d("Database: ", "Reading all lists...");
         List<ListInfo> list = dh.getAll();
 
         for (ListInfo li : list) {
-            String log = "ID:" + li.getID() + "Name : " + li.getName() + " Contents: " + li.getContents() + " Category: " +li.getCategory();
+            String log = "ID:" + li.getID() + "Name : " + li.getName() + " Contents: " + li.getContents() + " Category: " + li.getCategory();
             Log.d("Database", log);
         }
 
@@ -59,11 +70,10 @@ public class Add extends AppCompatActivity {
                 new View.OnClickListener() {
 
                     @Override
-                    public void onClick(View v){
+                    public void onClick(View v) {
                         finish();
                     }
                 }
         );
-
     }
 }
