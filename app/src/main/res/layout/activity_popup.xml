@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="uk.ac.tees.com2060.kitkat.generalist.Popup"
     android:background="@drawable/border"
-    android:padding="7dip">
-
-
+    android:padding="7dip"
+    tools:context="uk.ac.tees.com2060.kitkat.generalist.Popup">
 
     <TextView
         android:id="@+id/view_contents"
         android:layout_width="258dp"
         android:layout_height="498dp"
-        android:text="View Contents"
-        android:textSize="30sp"
-        android:layout_marginTop="0dp" />
+        android:layout_marginTop="0dp"
+        android:text="@string/view_contents"
+        android:textSize="30sp" />
 
 
 </android.support.constraint.ConstraintLayout>

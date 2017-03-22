@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <ImageView
         android:id="@+id/list_item_thumbnail"
@@ -18,28 +19,28 @@
         android:id="@+id/list_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/list_item_thumbnail" />
+        android:layout_toEndOf="@+id/list_item_thumbnail"
+        android:text="TextView" />
 
     <ImageButton
         android:id="@+id/list_item_delBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_dialog"
         android:layout_alignBottom="@+id/list_item_thumbnail"
         android:layout_alignParentEnd="true"
-        android:onClick="del_click" />
+        android:onClick="del_click"
+        app:srcCompat="@android:drawable/btn_dialog" />
 
     <ImageButton
         android:id="@+id/list_item_editBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_edit"
-        android:layout_marginEnd="54dp"
-        android:layout_alignTop="@+id/list_item_delBtn"
         android:layout_alignParentEnd="true"
-        android:onClick="edit_click"/>
+        android:layout_alignTop="@+id/list_item_delBtn"
+        android:layout_marginEnd="54dp"
+        android:onClick="edit_click"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 
 
 </RelativeLayout>
