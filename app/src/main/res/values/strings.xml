@@ -18,4 +18,5 @@
     <string name="home">Home</string>
     <string name="edit_item">Edit Item</string>
     <string name="add_item">Add Item</string>
+    <string name="view_contents">View Contents</string>
 </resources>

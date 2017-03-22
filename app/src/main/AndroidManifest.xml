@@ -18,7 +18,8 @@
         <activity android:name=".Add" />
         <activity android:name=".ViewListActivity" />
         <activity android:name=".Editing" />
-        <activity android:name=".Popup"
+        <activity
+            android:name=".Popup"
             android:theme="@style/AppTheme.PopupCustom"></activity>
     </application>
 

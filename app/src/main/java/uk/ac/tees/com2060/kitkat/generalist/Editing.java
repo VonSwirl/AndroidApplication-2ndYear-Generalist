@@ -1,10 +1,7 @@
 package uk.ac.tees.com2060.kitkat.generalist;
 
-
-import android.graphics.Color;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,9 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Editing extends AppCompatActivity {
@@ -35,7 +30,7 @@ public class Editing extends AppCompatActivity {
         //Setting buttons and editTexts
         Button svBtn = (Button) findViewById(R.id.save_button);
         Button cnclBtn = (Button) findViewById(R.id.cancel_button);
-        final EditText name = (EditText) findViewById(R.id.editTextName);
+        final EditText name = (EditText) findViewById(R.id.addName);
         final EditText category = (EditText) findViewById(R.id.editTextCat);
         final EditText contents = (EditText) findViewById(R.id.editTextContents);
 
@@ -70,7 +65,7 @@ public class Editing extends AppCompatActivity {
 
                         Log.d("Database:", "Updating Entry...");  //For personal testing
                         //Position +1 because array list starts at 0. Getting all EditTexts and adding into db
-                        dh.updateByID(position +1, name.getText().toString(), contents.getText().toString(), category.getText().toString());
+                        dh.updateByID(position + 1, name.getText().toString(), contents.getText().toString(), category.getText().toString());
                         finish();
 
 

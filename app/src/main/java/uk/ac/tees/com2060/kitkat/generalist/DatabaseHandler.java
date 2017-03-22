@@ -84,7 +84,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<ListInfo> item = new ArrayList<ListInfo>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String selectQuery = "SELECT * FROM " + TABLE_NAME  + " WHERE " + COL_ID + "=" + id;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_ID + "=" + id;
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
