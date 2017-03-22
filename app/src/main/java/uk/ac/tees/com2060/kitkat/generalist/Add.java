@@ -16,10 +16,7 @@ public class Add extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-
         final DatabaseHandler dh = new DatabaseHandler(this);
-
-
 
         // This section of commented out code was for initial testing of database insertion.
         // dh.removeAll();
@@ -44,8 +41,6 @@ public class Add extends AppCompatActivity {
 
         //Takes the text from the required fields and creates a new database entry with that information
         svBtn.setOnClickListener(
-
-
                 new View.OnClickListener() {
 
 
@@ -59,8 +54,6 @@ public class Add extends AppCompatActivity {
                 }
         );
 
-
-        //This method kills the activity
         cnclBtn.setOnClickListener(
 
                 new View.OnClickListener() {
@@ -71,20 +64,6 @@ public class Add extends AppCompatActivity {
                     }
                 }
         );
-
-
-
-
-
-        //dh.removeAll();
-
-
-        //dh.addList(new ListInfo("List 1 (shoppin)", "eggs, cheese and milk", "Shopping"));
-        //dh.addList(new ListInfo("List 2 (shoppin)", "eggs", "Shopping"));
-        //dh.addList(new ListInfo("List 3 (pharmacy)", "2100/5, paracetamol", "Pharmacy"));
-        //dh.addList(new ListInfo("List 4 (clothes)", "jean", "Clothing"));
-
-
 
     }
 }
