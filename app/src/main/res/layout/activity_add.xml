@@ -43,7 +43,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/editTextName"
+            android:id="@+id/addName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/editTextContents"
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/cancel_button"
-            android:layout_below="@+id/editTextName"
+            android:layout_below="@+id/addName"
             android:layout_marginTop="25dp"
             android:ems="10"
             android:hint="@string/contents"
@@ -121,3 +121,4 @@
 
     </RelativeLayout>
 
+</RelativeLayout>

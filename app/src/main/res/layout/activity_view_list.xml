@@ -10,46 +10,46 @@
         android:id="@+id/listBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:addStatesFromChildren="false"
-        android:layout_below="@+id/listBar" />
+        android:layout_below="@+id/listBar"
+        android:addStatesFromChildren="false" />
 
     <ImageButton
         android:id="@+id/homeButton"
         style="@android:style/Widget.DeviceDefault.Light.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/addButton"
+        android:layout_marginEnd="14dp"
         android:layout_marginLeft="@dimen/pad_size_16dp"
         android:layout_marginRight="@dimen/pad_size_16dp"
         android:background="@color/colorPrimary"
         android:contentDescription="@string/home"
-        android:src="@drawable/ic_home_dark"
-        android:layout_alignTop="@+id/addButton"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="14dp" />
+        android:src="@drawable/ic_home_dark" />
 
     <ImageButton
         android:id="@+id/addButton"
         style="@android:style/Widget.DeviceDefault.Light.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/list"
+        android:layout_marginBottom="11dp"
         android:layout_marginLeft="@dimen/pad_size_16dp"
         android:layout_marginRight="@dimen/pad_size_16dp"
+        android:layout_toStartOf="@+id/homeButton"
         android:background="@color/colorPrimary"
         android:contentDescription="@string/home"
-        android:src="@drawable/ic_action_name"
-        android:layout_above="@+id/list"
-        android:layout_toStartOf="@+id/homeButton"
-        android:layout_marginBottom="11dp" />
+        android:src="@drawable/ic_action_name" />
 
 </RelativeLayout>
