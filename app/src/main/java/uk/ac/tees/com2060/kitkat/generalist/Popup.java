@@ -1,12 +1,10 @@
 package uk.ac.tees.com2060.kitkat.generalist;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.List;
@@ -28,7 +26,7 @@ public class Popup extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*.85),(int)(height*.75));
+        getWindow().setLayout((int) (width * .85), (int) (height * .75));
 
 
         final TextView viewContents = (TextView) findViewById(R.id.view_contents);
