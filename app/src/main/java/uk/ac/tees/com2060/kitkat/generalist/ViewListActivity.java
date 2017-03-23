@@ -108,7 +108,10 @@ public class ViewListActivity extends AppCompatActivity {
                     entry.add(0, log);
                 }
 
-                startActivity(new Intent(ViewListActivity.this, Popup.class));
+                //startActivity(new Intent(ViewListActivity.this, Popup.class));
+                Intent intent = new Intent(ViewListActivity.this, Popup.class);
+                intent.putExtra("position", position);
+                startActivity(intent);
                 Toast.makeText(ViewListActivity.this, entry.get(0), Toast.LENGTH_SHORT).show();
             }
         });
