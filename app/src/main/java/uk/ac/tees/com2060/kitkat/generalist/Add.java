@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import java.util.List;
 
@@ -25,6 +26,16 @@ public class Add extends AppCompatActivity {
         addBar.setTitleTextColor(Color.WHITE);
         getSupportActionBar().setTitle(R.string.add_item);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        //This button is added to the toolbar as a home icon, see XML attached
+        ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Return to Home Screen
+                finish();
+            }
+        });
 
         final DatabaseHandler dh = new DatabaseHandler(this);
 
