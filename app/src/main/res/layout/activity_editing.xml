@@ -25,18 +25,14 @@
         android:id="@+id/relativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editBar">
+        android:layout_marginRight="@dimen/pad_size_16dp"
+        android:layout_marginLeft="@dimen/pad_size_16dp"
+        android:layout_below="@+id/editBar"
+        android:layout_above="@+id/relativeLayoutbottom"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true">
 
-        <Button
-            android:id="@+id/save_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="21dp"
-            android:text="Save"
-            android:layout_marginStart="23dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -71,14 +67,17 @@
             android:layout_alignParentStart="true" />
 
         <EditText
+            android:id="@+id/editTextContents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/editTextContents"
-            android:hint="Contents..."
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/textView6"
-            android:layout_alignParentStart="true" />
+            android:ems="10"
+            android:hint="Contents..."
+            android:inputType="textMultiLine"
+            android:gravity="left|top" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -100,15 +99,51 @@
             android:layout_alignBottom="@+id/editTextCat"
             android:layout_alignParentStart="true" />
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutbottom"
+        android:layout_height="70dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+
         <Button
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
             android:layout_marginRight="26dp"
-            android:text="Cancel" />
+            android:text="Cancel"
+            android:layout_alignBaseline="@+id/save_button"
+            android:layout_alignBottom="@+id/save_button"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="25dp" />
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21dp"
+            android:text="Save"
+            android:layout_marginStart="24dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/homeButton"
+        style="@android:style/Widget.DeviceDefault.Light.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relativeLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="11dp"
+        android:layout_marginLeft="@dimen/pad_size_16dp"
+        android:layout_marginRight="@dimen/pad_size_16dp"
+        android:background="@color/colorPrimary"
+        android:contentDescription="@string/home"
+        android:src="@drawable/ic_home_dark" />
 
 </RelativeLayout>

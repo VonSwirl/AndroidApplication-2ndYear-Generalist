@@ -112,7 +112,7 @@ public class ViewListActivity extends AppCompatActivity {
                 Intent intent = new Intent(ViewListActivity.this, Popup.class);
                 intent.putExtra("position", position);
                 startActivity(intent);
-                Toast.makeText(ViewListActivity.this, entry.get(0), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ViewListActivity.this, entry.get(0), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -170,13 +170,14 @@ public class ViewListActivity extends AppCompatActivity {
                     //notifyDataSetChanged();
                     //adapter.notifyDataSetChanged();
 
-                  /*  if(position == 0){
-
-                        Log.d("test", "delete at " + position);
-                    }
-                    else {*/
-                    //  dh.deleteList(position + 1);//This works for now but if you delete the last item it will crash because no +1 exists
-                    // }
+//                    if(position == 0){
+//                        dh.deleteItem(position);
+//                        Log.d("test", "delete at " + position);
+//                    }
+//                    else {
+//                      dh.deleteItem(position + 1);
+//                        Log.d("test", "delete at " + position);//This works for now but if you delete the last item it will crash because no +1 exists
+//                    }
                 }
             });
 
