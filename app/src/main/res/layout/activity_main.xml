@@ -34,7 +34,13 @@
         android:layout_margin="@dimen/pad_size_16dp"
         android:orientation="vertical"
         android:weightSum="1"
-        tools:context=".CalendarActivity" />
+        tools:context=".CalendarActivity"
+        android:compactCalendarBackgroundColor="#ffe95451"
+        android:compactCalendarTextColor="#fff"
+        android:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
+        android:compactCalendarCurrentDayBackgroundColor="#B71C1C"
+        android:compactCalendarMultiEventIndicatorColor="#fff"/>
+
 
     <Button
         android:id="@+id/addButton"
