@@ -81,13 +81,32 @@ public class MainActivity extends AppCompatActivity {
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_main);
+                final calendar compactCalendarView = (calendar) findViewById(R.id.calendar);
 
-                calendar = (CalendarView) findViewById(R.id.calendar);
-                calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                compactCalendarView.setFirstDayOfWeek(Calendar.MONDAY);
+
+                Event ev1 new Event(Color.GREEN, 1433701251000L, "Some extra data that I want to store.");
+                compactCalendar.addEvent(ev1);
+
+                // Added event 2 GMT: Sun, 07 Jun 2015 19:10:51 GMT
+                Event ev2 = new Event(Color.GREEN, 1433704251000L);
+                compactCalendar.addEvent(ev2);
+
+
+                List<Event> events = compactCalendar.getEvents(1433701251000L);
+
+                Log.d(TAG, "Events: " + events);
+
+                compactCalendarView.setListener(new calendar.calendarListener() {
+                    @Override
+                    public void onDayClick(Date dateClicked) {
+                        List<Event> events = compactCalendarView.getEvents(dateClicked);
+                        Log.d(TAG, "Day was clicked: " + dateClicked + " with events " + events);
+                    }
 
                     @Override
-                    public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
-                        Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+                    public void onMonthScroll(Date firstDayOfNewMonth) {
+                        Log.d(TAG, "Month was scrolled to: " + firstDayOfNewMonth);
                     }
                 });
             }
