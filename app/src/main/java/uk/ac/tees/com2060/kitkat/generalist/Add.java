@@ -6,13 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
 import java.util.List;
 
 public class Add extends AppCompatActivity {
+
+    String catResult = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,26 +44,28 @@ public class Add extends AppCompatActivity {
 
         final DatabaseHandler dh = new DatabaseHandler(this);
 
-        // This section of commented out code was for initial testing of database insertion.
-        // dh.removeAll();
-        //Log.d("Database:", "Inserting values..");
-
-        //dh.addList(new ListInfo("Shopping Test", "egg, banana, ham", "Shopping"));
-
         Button svBtn = (Button) findViewById(R.id.save_button);
         Button cnclBtn = (Button) findViewById(R.id.cancel_button);
 
         final EditText name = (EditText) findViewById(R.id.editTextName);
         final EditText contents = (EditText) findViewById(R.id.editTextContents);
-        final EditText category = (EditText) findViewById(R.id.editTextCat);
+        //final EditText category = (EditText) findViewById(R.id.editTextCat);
 
-        Log.d("Database: ", "Reading all lists...");
-        List<ListInfo> list = dh.getAll();
+        final Spinner mySpinner = (Spinner) findViewById(R.id.ContentsSpinner); //Creating the spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Add.this, //Setting the array adapter on the spinner
+                android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.categories));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //Using standard android layout
+        mySpinner.setAdapter(adapter);
 
-        for (ListInfo li : list) {
-            String log = "ID:" + li.getID() + "Name : " + li.getName() + " Contents: " + li.getContents() + " Category: " + li.getCategory();
-            Log.d("Database", log);
-        }
+        //Listener with will get the current text that is selected in the spinner
+        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                //Sets the global variable to be the one selected, this is so it can be added into the DB
+                catResult = parent.getItemAtPosition(pos).toString();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         //Takes the text from the required fields and creates a new database entry with that information
         svBtn.setOnClickListener(
@@ -69,7 +76,8 @@ public class Add extends AppCompatActivity {
                     public void onClick(View v) {
 
                         Log.d("Database:", "Inserting values..");  //For personal testing
-                        dh.addList(new ListInfo(name.getText().toString(), contents.getText().toString(), category.getText().toString()));
+                        Log.d("DatabaseTest", "adding + " + catResult);
+                        dh.addList(new ListInfo(name.getText().toString(), contents.getText().toString(), catResult));
                         finish();
                     }
                 }
@@ -86,4 +94,15 @@ public class Add extends AppCompatActivity {
                 }
         );
     }
+
+
 }
+
+//This doesnt need to be done?
+//        Log.d("Database: ", "Reading all lists...");
+//        List<ListInfo> list = dh.getAll();
+//
+//        for (ListInfo li : list) {
+//            String log = "ID:" + li.getID() + "Name : " + li.getName() + " Contents: " + li.getContents() + " Category: " + li.getCategory();
+//            Log.d("Database", log);
+//        }

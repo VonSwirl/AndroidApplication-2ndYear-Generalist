@@ -19,4 +19,15 @@
     <string name="edit_item">Edit Item</string>
     <string name="add_item">Add Item</string>
     <string name="view_contents">View Contents</string>
+    
+    <string-array name="categories">
+        <item>Shopping</item>
+        <item>Medicine</item>
+        <item>Work</item>
+        <item>Home</item>
+        <item>Birthdays</item>
+        <item>Custom</item>
+    </string-array>
+    
+    
 </resources>

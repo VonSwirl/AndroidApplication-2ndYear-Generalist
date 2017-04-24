@@ -63,8 +63,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView6"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:layout_below="@+id/editTextCat"
-            android:layout_alignParentStart="true" />
+            android:layout_below="@+id/textView7"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="22dp" />
 
         <EditText
             android:id="@+id/editTextContents"
@@ -79,25 +80,15 @@
             android:inputType="textMultiLine"
             android:gravity="left|top" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/editTextCat"
-            android:hint="Shopping..."
-            android:layout_below="@+id/editTextName"
-            android:layout_alignStart="@+id/editTextName" />
-
         <TextView
             android:text="Category:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView7"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:layout_alignBaseline="@+id/editTextCat"
-            android:layout_alignBottom="@+id/editTextCat"
-            android:layout_alignParentStart="true" />
+            android:layout_below="@+id/editTextName"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="12dp" />
 
     </RelativeLayout>
 
@@ -145,5 +136,17 @@
         android:background="@color/colorPrimary"
         android:contentDescription="@string/home"
         android:src="@drawable/ic_home_dark" />
+
+
+    <Spinner
+        android:id="@+id/ContentsSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="52dp"
+        android:layout_below="@+id/editBar"
+        android:layout_alignStart="@+id/relativeLayout" />
+
+
 
 </RelativeLayout>

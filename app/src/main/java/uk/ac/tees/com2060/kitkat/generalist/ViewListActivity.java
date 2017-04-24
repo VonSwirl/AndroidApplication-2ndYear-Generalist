@@ -10,6 +10,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,6 +115,8 @@ public class ViewListActivity extends AppCompatActivity {
                 startActivity(intent);
                 //Toast.makeText(ViewListActivity.this, entry.get(0), Toast.LENGTH_SHORT).show();
             }
+
+
         });
 
     }
@@ -155,7 +158,7 @@ public class ViewListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     // Toast.makeText(getContext(), "The EDIT IMAGE was clicked for list item " + position, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), Editing.class); //Links the class to the intended place to go
-                    intent.putExtra("position", position);
+                    intent.putExtra("position", position); //Passes in the position to be used
                     startActivity(intent); //Starts that activity
                     //TODO: When the save button is pressed this also dynamically updates the list
                 }
@@ -164,20 +167,28 @@ public class ViewListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(), "The DELETE IMAGE was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+                    String toRemove = adapter.getItem(position);
+//
+//                    int lastPosition = getCount() - 1;
+//                    if(position == 0 || position == lastPosition){
+//                    dh.deleteItem(position -1);
+//                     Log.d("test", "delete at " + position);
+//                }
+//                    else {
+//                    dh.deleteItem(position + 1);
+//                    Log.d("test", "delete at " + position);//This works for now but if you delete the last item it will crash because no +1 exists
+//                }
+                    adapter.remove(toRemove);
+                    dh.deleteItem(position);
+                    adapter.notifyDataSetChanged();
+
                     //TODO: Get delete button working and dynamically updating the list
                     //dh.deleteItem(position);
                     //Have to use a method like these to update the current listview?
                     //notifyDataSetChanged();
                     //adapter.notifyDataSetChanged();
 
-//                    if(position == 0){
-//                        dh.deleteItem(position);
-//                        Log.d("test", "delete at " + position);
-//                    }
-//                    else {
-//                      dh.deleteItem(position + 1);
-//                        Log.d("test", "delete at " + position);//This works for now but if you delete the last item it will crash because no +1 exists
-//                    }
+
                 }
             });
 
