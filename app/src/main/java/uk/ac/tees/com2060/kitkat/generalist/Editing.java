@@ -19,6 +19,7 @@ import java.util.List;
 public class Editing extends AppCompatActivity {
 
     String catResult = "";
+    public static String returnName = "RETURNAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class Editing extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();//Create new getIntent
+        final Intent intent = getIntent();//Create new getIntent
         final int position = intent.getIntExtra("position", 0); //Use it to pass the position from "ViewListActivity"
 
 
@@ -88,7 +89,7 @@ public class Editing extends AppCompatActivity {
             //Compares the value with the category pulled from DB and then sets it on the spinner
             mySpinner.setAdapter(adapter);
             if (!dbCat.equals(null)) {
-                int spinnerPosition = adapter.getPosition(dbCat); //If
+                int spinnerPosition = adapter.getPosition(dbCat);
                 mySpinner.setSelection(spinnerPosition);
             }
         }
@@ -100,14 +101,19 @@ public class Editing extends AppCompatActivity {
 
                     @Override
                     public void onClick(View v) {
-
                         //Should there be a try catch around this?
 
                         Log.d("Database:", "Updating Entry...");  //For personal testing
                         //Position +1 because array list starts at 0. Getting all EditTexts and adding into db
                         dh.updateByID(position + 1, name.getText().toString(), contents.getText().toString(), catResult);
-                        finish();
 
+                        returnName =  ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
+
+                        Intent returnIntent = new Intent(); //Create a new return intent and pass the name and position
+                        returnIntent.putExtra("updatedName", returnName);
+                        returnIntent.putExtra("position", position);
+                        setResult(RESULT_OK, returnIntent); //set the result and pass the intent with the values
+                        finish();
 
                     }
                 }

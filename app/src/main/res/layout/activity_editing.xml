@@ -58,14 +58,14 @@
             android:layout_marginStart="11dp" />
 
         <TextView
-            android:text="List Contents:"
+            android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView6"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:layout_below="@+id/textView7"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="22dp" />
+            android:layout_below="@+id/textView7"
+            android:layout_marginTop="22dp"
+            android:text="@string/list_contents"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <EditText
             android:id="@+id/editTextContents"
@@ -81,14 +81,14 @@
             android:gravity="left|top" />
 
         <TextView
-            android:text="Category:"
+            android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView7"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:layout_below="@+id/editTextName"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="12dp" />
+            android:layout_below="@+id/editTextName"
+            android:layout_marginTop="12dp"
+            android:text="@string/list_category"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     </RelativeLayout>
 
@@ -104,22 +104,22 @@
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="26dp"
-            android:text="Cancel"
             android:layout_alignBaseline="@+id/save_button"
             android:layout_alignBottom="@+id/save_button"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="25dp" />
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="26dp"
+            android:text="@string/cancel" />
 
         <Button
             android:id="@+id/save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="21dp"
-            android:text="Save"
-            android:layout_marginStart="24dp"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
+            android:layout_marginLeft="21dp"
+            android:layout_marginStart="24dp"
+            android:text="@string/save" />
 
     </RelativeLayout>
 
