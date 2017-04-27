@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,11 +31,12 @@ public class ViewListActivity extends AppCompatActivity {
 
     final Context context = this;
     MyListAdapter adapter;
-    private DatabaseHandler dh;
-
+    DatabaseHandler dh;
+    ArrayList<String> entries = new ArrayList<>();
 
     public ViewListActivity() {
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,7 @@ public class ViewListActivity extends AppCompatActivity {
         dh = new DatabaseHandler(this);
         final List<ListInfo> value = dh.getAll();
         int loc = 0;
-        final ArrayList<String> entries = new ArrayList<>();
+        //final ArrayList<String> entries = new ArrayList<>();
         final ArrayList<String> entry = new ArrayList<>();
 
         //Puts data into view list
@@ -87,6 +89,7 @@ public class ViewListActivity extends AppCompatActivity {
 
             entries.add(loc, log);
             loc++;
+
         }
 
         //Setting the adapter for the view list (so each row)
@@ -95,6 +98,8 @@ public class ViewListActivity extends AppCompatActivity {
 
         adapter = new MyListAdapter(this, R.layout.view_row, entries);
         lv.setAdapter(adapter);
+
+        System.out.println("THIS IS CALLED AT THE START AND WHEN PRESSING HOME");
 
 
         //Listener for when the list has been pressed, This will show up what is in the list currently
@@ -109,7 +114,6 @@ public class ViewListActivity extends AppCompatActivity {
                     entry.add(0, log);
                 }
 
-                //startActivity(new Intent(ViewListActivity.this, Popup.class));
                 Intent intent = new Intent(ViewListActivity.this, Popup.class);
                 intent.putExtra("position", position);
                 startActivity(intent);
@@ -120,6 +124,7 @@ public class ViewListActivity extends AppCompatActivity {
         });
 
     }
+
 
 
     private class MyListAdapter extends ArrayAdapter<String> {
@@ -133,6 +138,8 @@ public class ViewListActivity extends AppCompatActivity {
             super(context, resource, objects);
             mObjects = objects;
             layout = resource;
+
+
         }
 
 
@@ -157,12 +164,14 @@ public class ViewListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // Toast.makeText(getContext(), "The EDIT IMAGE was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(getContext(), Editing.class); //Links the class to the intended place to go
                     intent.putExtra("position", position); //Passes in the position to be used
-                    startActivity(intent); //Starts that activity
-                    //TODO: When the save button is pressed this also dynamically updates the list
+                    startActivityForResult(intent, 1); //Start the activity and pass 1 as a resultCode
+
                 }
             });
+
             mainViewholder.delBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -196,6 +205,26 @@ public class ViewListActivity extends AppCompatActivity {
             return convertView;
         }
 
+
+    }
+
+    //Gets the result from a returned activity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            String updatedName = data.getStringExtra("updatedName"); //Get the updated name from the edit class
+            int position = data.getIntExtra("position",0); //Get the current position it was editing
+
+            System.out.println("THE UPDATED NAME IS " + updatedName);
+            System.out.println("THE POSITION IS " + position);
+
+            entries.set(position, updatedName); //Set the new name where the current position is
+            adapter.notifyDataSetChanged(); //update the viewlist
+
+
+        }
+
     }
 
     public class ViewHolder {
@@ -207,3 +236,5 @@ public class ViewListActivity extends AppCompatActivity {
 
 
 }
+
+
