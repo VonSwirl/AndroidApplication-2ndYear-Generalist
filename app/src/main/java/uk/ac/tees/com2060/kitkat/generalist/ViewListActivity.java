@@ -62,6 +62,7 @@ public class ViewListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         //This button is added to the toolbar as a home icon, see XML attached
         ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
@@ -84,9 +85,12 @@ public class ViewListActivity extends AppCompatActivity {
         //Puts data into view list
         for (ListInfo li : value) {
             String log = li.getName();
+            int active = li.getActive();
 
-            entries.add(loc, log);
-            loc++;
+            if(active == 1) {
+                entries.add(loc, log);
+                loc++;
+            }
         }
 
         //Setting the adapter for the view list (so each row)
@@ -124,7 +128,6 @@ public class ViewListActivity extends AppCompatActivity {
 
     private class MyListAdapter extends ArrayAdapter<String> {
 
-
         private int layout;
         private List<String> mObjects;
 
@@ -134,7 +137,6 @@ public class ViewListActivity extends AppCompatActivity {
             mObjects = objects;
             layout = resource;
         }
-
 
         //Used for getting the view and creating the buttons etc
         @Override
@@ -166,10 +168,10 @@ public class ViewListActivity extends AppCompatActivity {
             mainViewholder.delBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "The DELETE IMAGE was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "DELETE clicked @ " + position, Toast.LENGTH_SHORT).show();
                     String toRemove = adapter.getItem(position);
 //
-//                    int lastPosition = getCount() - 1;
+                    int lastPosition = getCount() - 1;
 //                    if(position == 0 || position == lastPosition){
 //                    dh.deleteItem(position -1);
 //                     Log.d("test", "delete at " + position);
@@ -180,6 +182,8 @@ public class ViewListActivity extends AppCompatActivity {
 //                }
                     adapter.remove(toRemove);
                     dh.deleteItem(position);
+                    Log.d("test", "delete at " + position);
+
                     adapter.notifyDataSetChanged();
 
                     //TODO: Get delete button working and dynamically updating the list
