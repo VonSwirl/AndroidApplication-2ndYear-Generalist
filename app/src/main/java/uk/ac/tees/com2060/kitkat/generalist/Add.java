@@ -2,6 +2,7 @@ package uk.ac.tees.com2060.kitkat.generalist;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +18,6 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Calendar;
 
 public class Add extends AppCompatActivity {
@@ -25,7 +25,8 @@ public class Add extends AppCompatActivity {
     final int active = 1;
     String catResult = "";
     public TextView dateView;
-    private int year, month, day;
+    int year, month, day;
+    public static String returnName = "RETURNAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,9 @@ public class Add extends AppCompatActivity {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
+        dateView = (TextView) findViewById(R.id.viewDate);
+        dateView.setText(new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
         showDate(year, month + 1, day);
 
         //Adds a Toolbar to this page and gives it a title
@@ -62,7 +66,9 @@ public class Add extends AppCompatActivity {
         Button cnclBtn = (Button) findViewById(R.id.cancel_button);
         final EditText name = (EditText) findViewById(R.id.editTextName);
         final EditText contents = (EditText) findViewById(R.id.editTextContents);
-        dateView = (TextView) findViewById(R.id.viewDate);
+        final Intent intent = getIntent();//Create new getIntent
+        final int position = intent.getIntExtra("position", 0); //Use it to pass the position from "ViewListActivity
+
 
         final Spinner mySpinner = (Spinner) findViewById(R.id.ContentsSpinner); //Creating the spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(Add.this, //Setting the array adapter on the spinner
@@ -92,7 +98,11 @@ public class Add extends AppCompatActivity {
                         Log.d("Database:", "Inserting values..");  //For personal testing
                         Log.d("DatabaseTest", "adding + " + catResult);
                         dh.addList(new ListInfo(name.getText().toString(), contents.getText().toString(), catResult, active, year, month, day));
-                        System.out.println("ADD CLASS = " + day + "/" + month + "/" + year);
+                        returnName =  ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
+                        Intent returnIntent = new Intent(); //Create a new return intent and pass the name and position
+                        returnIntent.putExtra("updatedName", returnName);
+                        returnIntent.putExtra("position", position);
+                        setResult(RESULT_OK, returnIntent); //set the result and pass the intent with the values
                         finish();
                     }
                 }

@@ -48,11 +48,8 @@ public class Editing extends AppCompatActivity {
         final EditText contents = (EditText) findViewById(R.id.editTextContents);
         dateView = (TextView) findViewById(R.id.viewDate);
 
-        //Create new getIntent
-        Intent intent = getIntent();
-
-        //Use it to pass the position from "ViewListActivity"
-        final int position = intent.getIntExtra("position", 0);
+        final Intent intent = getIntent();//Create new getIntent
+        final int position = intent.getIntExtra("position", 0); //Use it to pass the position from "ViewListActivity
         final DatabaseHandler dh = new DatabaseHandler(this);
 
         //This button is added to the toolbar as a home icon, see XML attached
@@ -85,8 +82,6 @@ public class Editing extends AppCompatActivity {
 
         //Create a new List that will hold the current item
         List<ListInfo> item;
-        final Intent intent = getIntent();//Create new getIntent
-        final int position = intent.getIntExtra("position", 0); //Use it to pass the position from "ViewListActivity
 
         //Pass the single item from the position into the List
         item = dh.getOne(position);
