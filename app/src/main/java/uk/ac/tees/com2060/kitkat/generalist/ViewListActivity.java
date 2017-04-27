@@ -64,6 +64,7 @@ public class ViewListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         //This button is added to the toolbar as a home icon, see XML attached
         ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
@@ -86,10 +87,12 @@ public class ViewListActivity extends AppCompatActivity {
         //Puts data into view list
         for (ListInfo li : value) {
             String log = li.getName();
+            int active = li.getActive();
 
-            entries.add(loc, log);
-            loc++;
-
+            if(active == 1) {
+                entries.add(loc, log);
+                loc++;
+            }
         }
 
         //Setting the adapter for the view list (so each row)
@@ -100,7 +103,6 @@ public class ViewListActivity extends AppCompatActivity {
         lv.setAdapter(adapter);
 
         System.out.println("THIS IS CALLED AT THE START AND WHEN PRESSING HOME");
-
 
         //Listener for when the list has been pressed, This will show up what is in the list currently
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -119,16 +121,12 @@ public class ViewListActivity extends AppCompatActivity {
                 startActivity(intent);
                 //Toast.makeText(ViewListActivity.this, entry.get(0), Toast.LENGTH_SHORT).show();
             }
-
-
-        });
-
-    }
+ });
+  }
 
 
 
     private class MyListAdapter extends ArrayAdapter<String> {
-
 
         private int layout;
         private List<String> mObjects;
@@ -138,10 +136,7 @@ public class ViewListActivity extends AppCompatActivity {
             super(context, resource, objects);
             mObjects = objects;
             layout = resource;
-
-
-        }
-
+   }
 
         //Used for getting the view and creating the buttons etc
         @Override
@@ -156,8 +151,7 @@ public class ViewListActivity extends AppCompatActivity {
                 viewHolder.editBtn = (ImageButton) convertView.findViewById(R.id.list_item_editBtn);
                 viewHolder.delBtn = (ImageButton) convertView.findViewById(R.id.list_item_delBtn);
                 convertView.setTag(viewHolder);
-
-            }
+  }
             mainViewholder = (ViewHolder) convertView.getTag();
 
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
@@ -175,10 +169,10 @@ public class ViewListActivity extends AppCompatActivity {
             mainViewholder.delBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "The DELETE IMAGE was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "DELETE clicked @ " + position, Toast.LENGTH_SHORT).show();
                     String toRemove = adapter.getItem(position);
 //
-//                    int lastPosition = getCount() - 1;
+                    int lastPosition = getCount() - 1;
 //                    if(position == 0 || position == lastPosition){
 //                    dh.deleteItem(position -1);
 //                     Log.d("test", "delete at " + position);
@@ -189,6 +183,8 @@ public class ViewListActivity extends AppCompatActivity {
 //                }
                     adapter.remove(toRemove);
                     dh.deleteItem(position);
+                    Log.d("test", "delete at " + position);
+
                     adapter.notifyDataSetChanged();
 
                     //TODO: Get delete button working and dynamically updating the list
@@ -196,16 +192,12 @@ public class ViewListActivity extends AppCompatActivity {
                     //Have to use a method like these to update the current listview?
                     //notifyDataSetChanged();
                     //adapter.notifyDataSetChanged();
-
-
-                }
+           }
             });
 
             mainViewholder.title.setText(getItem(position));
             return convertView;
         }
-
-
     }
 
     //Gets the result from a returned activity
@@ -221,10 +213,7 @@ public class ViewListActivity extends AppCompatActivity {
 
             entries.set(position, updatedName); //Set the new name where the current position is
             adapter.notifyDataSetChanged(); //update the viewlist
-
-
         }
-
     }
 
     public class ViewHolder {
@@ -233,8 +222,6 @@ public class ViewListActivity extends AppCompatActivity {
         ImageButton editBtn;
         ImageButton delBtn;
     }
-
-
 }
 
 

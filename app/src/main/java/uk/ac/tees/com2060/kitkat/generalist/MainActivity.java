@@ -25,15 +25,9 @@ public class MainActivity extends AppCompatActivity {
     // private GoogleApiClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ///////////////////////////////////////////////////////////////////////////
-        //Uncomment this to clean out your database then re-comment to avoid repeat
 
-        /*DatabaseHandler deleteEverything = new DatabaseHandler(this);
-        deleteEverything.removeAll();*/
-        ///////////////////////////////////////////////////////////////////////////
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         //Adds a Toolbar to this page and gives it a title
         Toolbar homeBar = (Toolbar) findViewById(R.id.homeBar);
@@ -55,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent); //Starts that activity
                     }
                 }
-
         );
 
         //Get a reference to the Button object in the layout (XML) file (the button that is linked on the screen)
