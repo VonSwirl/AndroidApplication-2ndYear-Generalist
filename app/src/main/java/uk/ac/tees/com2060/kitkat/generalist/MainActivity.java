@@ -3,20 +3,13 @@ package uk.ac.tees.com2060.kitkat.generalist;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.EventLog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
-
-
-import java.util.Date;
-import java.util.Locale;
 
 //import com.google.android.gms.appindexing.Action;
 //import com.google.android.gms.appindexing.AppIndex;
@@ -76,17 +69,11 @@ public class MainActivity extends AppCompatActivity {
         class CalendarActivity extends AppCompatActivity {
 
             CalendarView calendar;
-            //private SimpleDateFormat dateFormat = new SimpleDateFormat("DD- MM- YYYY", Locale.getDefault());
-
 
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_main);
-
-                final ActionBar actionBar = getSupportActionBar();
-                actionBar.setDisplayHomeAsUpEnabled(false);
-                actionBar.setTitle(null);
 
                 calendar = (CalendarView) findViewById(R.id.calendar);
                 calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -94,28 +81,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
                         Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
-
-                EventLog.Event ev1 = new EventLog.Event(android.R.color.holo_green_light, 1495905530, "Event planned");
-                        calendar.addEvent(ev1);
-
-                calendar.setOnClickListener();new CalendarView.CalendarViewListener();
-                        @Override
-                        public void onDayClick(Date dateClicked);
-                            context context = getApplicationContext();
-
-                            if (dateClicked.tostring().compareTo("Fri Oct 21 2017") == 0) (
-                                    Toast.makeToast(context, "Event planned", Toast.LENGTH_SHORT).show());
-
-                        else {
-                                        Toast.makeText(context, "No event planned", Toast.LENGTH_SHORT).show()};
-                    @Override
-                    public void onMonthScroll(Date firstDayOfNewMonth) (
-                            ActionBar.setTitle(dateFormatMonth.format (firstDayOfNewMonth));
-
                     }
-
-
-        });
+                });
+            }
+        }
         //Creating calendar for dashboard
 
 
