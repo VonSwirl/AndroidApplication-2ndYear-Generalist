@@ -6,19 +6,27 @@
     <string name="add_lists">Add List</string>
     <string name="view_lists">All Items</string>
     <string name="save">Save</string>
-    <string name="name">Name...</string>
+    <string name="name">Name…</string>
     <string name="list_contents">List Contents:</string>
-    <string name="contents">Contents...</string>
-    <string name="list_category">Category:</string>
-    <string name="shopping">Shopping...</string>
+
+    <string name="contents">Contents…</string>
+    <string name="category">Category:</string>
+    <string name="shopping">Shopping…</string>
     <string name="cancel">Cancel</string>
     <string name="list_name">List Name:</string>
-    <string name="nameDotdot">Name...</string>
+    <string name="list__name">List Name:</string>
+    <string name="nameDotdot">Name…</string>
+
     <string name="home">Home</string>
     <string name="edit_item">Edit Item</string>
     <string name="add_item">Add Item</string>
     <string name="view_contents">View Contents</string>
-    
+    <string name="date_label_set">Press the button to set the date</string>
+    <string name="date_button_set">Set Date</string>
+    <string name="date_view_set">The Date is: </string>
+    <string name="date_selected">Date Selected: </string>
+    <string name="date_created">Date Created: </string>
+
     <string-array name="categories">
         <item>Shopping</item>
         <item>Medicine</item>
@@ -27,6 +35,6 @@
         <item>Birthdays</item>
         <item>Custom</item>
     </string-array>
-    
-    
+
+
 </resources>
