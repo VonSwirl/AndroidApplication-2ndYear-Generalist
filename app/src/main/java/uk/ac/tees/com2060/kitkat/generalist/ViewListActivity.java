@@ -172,7 +172,7 @@ public class ViewListActivity extends AppCompatActivity {
                     Toast.makeText(getContext(), "DELETE clicked @ " + position, Toast.LENGTH_SHORT).show();
                     String toRemove = adapter.getItem(position);
 //
-                    int lastPosition = getCount() - 1;
+                  //  int lastPosition = getCount() - 1;
 //                    if(position == 0 || position == lastPosition){
 //                    dh.deleteItem(position -1);
 //                     Log.d("test", "delete at " + position);

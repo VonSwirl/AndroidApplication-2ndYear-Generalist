@@ -26,11 +26,11 @@ public class Popup extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) (width * .85), (int) (height * .75));
+        getWindow().setLayout((int) (width * .85), (int) (height * .75)); //Sets the size of the popup window
 
 
         final TextView viewContents = (TextView) findViewById(R.id.view_contents);
-        Button cnclBtn = (Button) findViewById(R.id.cancel_button);
+       // Button cnclBtn = (Button) findViewById(R.id.cancel_button);
 
         Intent intent = getIntent();//Create new getIntent
         final int position = intent.getIntExtra("position", 0); //Use it to pass the position from "ViewListActivity"
