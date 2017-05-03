@@ -33,19 +33,23 @@ public class Popup extends AppCompatActivity {
        // Button cnclBtn = (Button) findViewById(R.id.cancel_button);
 
         Intent intent = getIntent();//Create new getIntent
-        final int position = intent.getIntExtra("position", 0); //Use it to pass the position from "ViewListActivity"
+        final String content = intent.getStringExtra("position"); //Use it to pass the position from "ViewListActivity"
+        System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
+                +    " popup " + content );
 
-        final DatabaseHandler dh = new DatabaseHandler(this);
-        List<ListInfo> item; //Create a new List that will hold the current item
-        item = dh.getOne(position); //Pass the single item from the position into the List
-        for (ListInfo li : item) { //Create ListInfo class and for each item
+
+        //final DatabaseHandler dh = new DatabaseHandler(this);
+        //List<String> item; //Create a new List that will hold the current item
+       /// ListInfo item = dh.getOne(position).get(0); //Pass the single item from the position into the List
+       viewContents.setText(content);
+      //  for (ListInfo li : item) { //Create ListInfo class and for each item
 
             //get the name, cat and contents
-            String dbCont = li.getContents();
+       //     String dbCont = li.getContents();
 
             //Set the values to the current ExitText
-            viewContents.setText(dbCont);
-        }
+      //      viewContents.setText(dbCont);
+       // }
 
       /*  cnclBtn.setOnClickListener( //Cancel current activity
 
