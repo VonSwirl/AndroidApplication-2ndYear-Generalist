@@ -200,7 +200,6 @@ public class ViewListActivity extends AppCompatActivity {
 
                     ListInfo toRemove = mObjects.get(position);
 //
-                   // int lastPosition = getCount() - 1;
 //                    if(position == 0 || position == lastPosition){
 //                    dh.deleteItem(position -1);
 //                     Log.d("test", "delete at " + position);
