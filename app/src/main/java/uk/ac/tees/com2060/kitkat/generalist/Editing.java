@@ -19,15 +19,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.util.List;
 
 public class Editing extends AppCompatActivity {
 
 
     private String catResult = "";
-    public int year, month, day;
     public TextView dateView;
     public static String returnName = "RETURNAME";
+    public long dbEpochDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class Editing extends AppCompatActivity {
         Button cnclBtn = (Button) findViewById(R.id.cancel_button);
         final EditText name = (EditText) findViewById(R.id.editTextName);
         final EditText contents = (EditText) findViewById(R.id.editTextContents);
-        dateView = (TextView) findViewById(R.id.viewDate);
+        dateView = (TextView) findViewById(R.id.viewDateedit);
 
         final Intent intent = getIntent();//Create new getIntent
         final int position = intent.getIntExtra("position", 0); //Use it to pass the position from "ViewListActivity
@@ -54,6 +55,9 @@ public class Editing extends AppCompatActivity {
 
         //This button is added to the toolbar as a home icon, see XML attached
         ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+
+        System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
+                + " eddtingt postion " + String.valueOf(position) );
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,10 +66,15 @@ public class Editing extends AppCompatActivity {
             }
         });
 
-        Spinner mySpinner = (Spinner) findViewById(R.id.ContentsSpinner); //Creating the spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Editing.this, //Setting the array adapter on the spinner
+        //Creating the spinner
+        Spinner mySpinner = (Spinner) findViewById(R.id.ContentsSpinner);
+
+        //Setting the array adapter on the spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Editing.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.categories));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //Using standard android layout
+
+        //Using standard android layout
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(adapter);
 
         //Listener with will get the current text that is selected in the spinner
@@ -86,6 +95,14 @@ public class Editing extends AppCompatActivity {
         //Pass the single item from the position into the List
         item = dh.getOne(position);
 
+        ListInfo testItem = dh.getOne(position).get(0);
+
+        System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
+                + " eddtingt itemmm " + testItem.getContents() );
+
+        //Force a double digit for date 1 == 01, 9 == 09 etc...
+        //DecimalFormat forceDoubleDigit = new DecimalFormat("00");
+
         //Create ListInfo class and for each item
         for (ListInfo li : item) {
 
@@ -93,13 +110,22 @@ public class Editing extends AppCompatActivity {
             String dbName = li.getName();
             String dbCat = li.getCategory();
             String dbCont = li.getContents();
-            year = li.getYear();
-            month = li.getMonth();
-            day = li.getDay();
+            dbEpochDate = li.getEpochDate();
+
+            String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate * 1000));
+            String[] dismantle = dateInString.split("/");
+            String dayStr = dismantle[0];
+            String monthStr = dismantle[1];
+            String yearStr = dismantle[2];
+            int day = Integer.parseInt(dayStr);
+            int month = Integer.parseInt(monthStr);
+            month = month + 1;
+            int year = Integer.parseInt(yearStr);
+            System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ" +
+                    "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz   == " + month);
             dateView.setText(new StringBuilder().append(day).append("/")
                     .append(month).append("/").append(year));
 
-            //Set the values to the current ExitText
             name.setText(dbName);
             contents.setText(dbCont);
 
@@ -111,6 +137,7 @@ public class Editing extends AppCompatActivity {
             }
         }
 
+
         //Saves current values to db
         svBtn.setOnClickListener(
 
@@ -120,11 +147,12 @@ public class Editing extends AppCompatActivity {
                     public void onClick(View v) {
                         //Should there be a try catch around this?
                         Log.d("Database:", "Updating Entry...");  //For personal testing
-                        //Position +1 because array list starts at 0. Getting all EditTexts and adding into db
 
-                        dh.updateByID(position + 1, name.getText().toString(), contents.getText().toString(), catResult, year, month, day);
-                        Toast.makeText(getApplicationContext(), "Saving", Toast.LENGTH_LONG).show();                      
-                        returnName =  ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
+                        //Position +1 because array list starts at 0. Getting all EditTexts and adding into db
+                        dh.updateByID(position + 1, name.getText().toString(), contents.getText().toString(), catResult, dbEpochDate);
+
+                        Toast.makeText(getApplicationContext(), "Saving", Toast.LENGTH_LONG).show();
+                        returnName = ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
                         Intent returnIntent = new Intent(); //Create a new return intent and pass the name and position
                         returnIntent.putExtra("updatedName", returnName);
                         returnIntent.putExtra("position", position);
@@ -154,6 +182,15 @@ public class Editing extends AppCompatActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
 
+        String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate * 1000));
+        String[] dismantle = dateInString.split("/");
+        String dayStr = dismantle[0];
+        String monthStr = dismantle[1];
+        String yearStr = dismantle[2];
+        int day = Integer.parseInt(dayStr);
+        int month = Integer.parseInt(monthStr);
+        int year = Integer.parseInt(yearStr);
+
         if (id == 999) {
             return new DatePickerDialog(this,
                     myDateListener, year, month, day);
@@ -164,17 +201,22 @@ public class Editing extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener myDateListener = new
             DatePickerDialog.OnDateSetListener() {
                 @Override
-                public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-                    // arg1 = year, arg 2 = month, arg3 = day
-                    showDate(arg1, arg2 + 1, arg3);
+                public void onDateSet(DatePicker arg0, int year, int month, int day) {
+                    showDate(year, month, day);
                 }
             };
 
     private void showDate(int y, int m, int d) {
         dateView.setText(new StringBuilder().append(d).append("/")
-                .append(m).append("/").append(y));
-        year = y;
-        month = m;
-        day = d;
+                .append(m+1 % 12).append("/").append(y));
+        String dateShow = d + "/" + m + "/" + y;
+        System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbBBBBB" +
+                "BBBBBBBBBBBBBBBBBBBBBBBBBB == " + dateShow);
+        //Convert from human readable date to epoch
+        try {
+            dbEpochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateShow).getTime() / 1000;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

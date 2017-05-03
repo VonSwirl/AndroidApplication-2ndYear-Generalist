@@ -27,13 +27,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COL_NAME = "name";
     private static final String COL_CONTENTS = "contents";
     private static final String COL_CAT = "category";
-    private static final String COL_YEAR = "year";
-    private static final String COL_MONTH = "month";
-    private static final String COL_DAY = "day";
+    private static final String COL_DATE = "date";
 
     //default constructor
     public DatabaseHandler(Context context) {
-
         super(context, DATABASE_NAME, null, 1);
     }
 
@@ -47,9 +44,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_CONTENTS + " TEXT,"
                 + COL_CAT + " TEXT,"
                 + COL_ACTIVE + " INTEGER,"
-                + COL_YEAR + " INTEGER,"
-                + COL_MONTH + " INTEGER,"
-                + COL_DAY + " INTEGER"
+                + COL_DATE + " INTEGER"
                 + ")";
         // Execute/run create SQL statement
         db.execSQL(CREATE_CONTACTS_TABLE);
@@ -72,9 +67,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_CONTENTS, list.getContents());
         values.put(COL_CAT, list.getCategory());
         values.put(COL_ACTIVE, list.getActive());
-        values.put(COL_YEAR, list.getYear());
-        values.put(COL_MONTH, list.getMonth());
-        values.put(COL_DAY, list.getDay());
+        values.put(COL_DATE, list.getEpochDate());
 
         //Id not needed because auto inc
 
@@ -88,7 +81,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public List<ListInfo> getOne(int id) {
 
-        id++;
 
         List<ListInfo> item = new ArrayList<ListInfo>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -103,9 +95,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int contentIdx = cursor.getColumnIndex(COL_CONTENTS);
             int categoryIdx = cursor.getColumnIndex(COL_CAT);
             int activeIdx = cursor.getColumnIndex(COL_ACTIVE);
-            int yearIdx = cursor.getColumnIndex(COL_YEAR);
-            int monthIdx = cursor.getColumnIndex(COL_MONTH);
-            int dayIdx = cursor.getColumnIndex(COL_DAY);
+            int dateIdx = cursor.getColumnIndex(COL_DATE);
 
 
             do {
@@ -116,9 +106,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(contentIdx),
                         cursor.getString(categoryIdx),
                         cursor.getInt(activeIdx),
-                        cursor.getInt(yearIdx),
-                        cursor.getInt(monthIdx),
-                        cursor.getInt(dayIdx)
+                        cursor.getLong(dateIdx)
                 );
 
                 item.add(usrList);
@@ -147,9 +135,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int contentIdx = cursor.getColumnIndex(COL_CONTENTS);
             int categoryIdx = cursor.getColumnIndex(COL_CAT);
             int activeIdx = cursor.getColumnIndex(COL_ACTIVE);
-            int yearIdx = cursor.getColumnIndex(COL_YEAR);
-            int monthIdx = cursor.getColumnIndex(COL_MONTH);
-            int dayIdx = cursor.getColumnIndex(COL_DAY);
+            int dateIdx = cursor.getColumnIndex(COL_DATE);
 
             do {
                 // Create lecturer object for current database record
@@ -159,9 +145,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(contentIdx),
                         cursor.getString(categoryIdx),
                         cursor.getInt(activeIdx),
-                        cursor.getInt(yearIdx),
-                        cursor.getInt(monthIdx),
-                        cursor.getInt(dayIdx)
+                        cursor.getLong(dateIdx)
                 );
 
                 list.add(usrList);
@@ -171,7 +155,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
-    public void updateByID(int id, String name, String content, String cat, int year, int month, int day) {
+    public void updateByID(int id, String name, String content, String cat, long date) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -179,9 +163,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_NAME, name);
         values.put(COL_CONTENTS, content);
         values.put(COL_CAT, cat);
-        values.put(COL_YEAR, year);
-        values.put(COL_MONTH, month);
-        values.put(COL_DAY, day);
+        values.put(COL_DATE, date);
         db.update(TABLE_NAME, values, COL_ID + "=" + id, null);
     }
 
