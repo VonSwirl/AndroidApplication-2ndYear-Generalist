@@ -19,12 +19,14 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/homeBar"
+        android:layout_below="@+id/homeBar"
         android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/pad_size_16dp"
+        android:layout_marginLeft="@dimen/pad_size_16dp"
+        android:layout_marginRight="@dimen/pad_size_16dp"
+        android:layout_marginTop="11dp"
         android:text="@string/work_rest_and_play" />
 
-    <CalendarView
+    <!--<CalendarView
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,15 +36,46 @@
         android:layout_margin="@dimen/pad_size_16dp"
         android:orientation="vertical"
         android:weightSum="1"
-        tools:context=".CalendarActivity" />
+        tools:context=".CalendarActivity" />-->
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true">
+
+        <com.github.sundeepk.compactcalendarview.CompactCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/compactcalendar_view"
+            android:layout_width="fill_parent"
+            android:layout_height="380dp"
+            android:layout_marginEnd="@dimen/pad_size_16dp"
+            android:layout_marginLeft="@dimen/pad_size_16dp"
+            android:layout_marginRight="@dimen/pad_size_16dp"
+            android:layout_marginStart="@dimen/pad_size_16dp"
+            android:layout_marginTop="@dimen/pad_size_16dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:compactCalendarBackgroundColor="@color/colorWhite"
+            app:compactCalendarCurrentDayBackgroundColor="#1324e4"
+            app:compactCalendarCurrentDayIndicatorStyle="no_fill_large_indicator"
+            app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="#581324e4"
+            app:compactCalendarEventIndicatorStyle="small_indicator"
+            app:compactCalendarMultiEventIndicatorColor="#e70bef"
+            app:compactCalendarTargetHeight="380dp"
+            app:compactCalendarTextColor="@android:color/background_dark"
+            app:compactCalendarTextSize="12sp" />
+    </RelativeLayout>
+
 
     <Button
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="@dimen/pad_size_16dp"
+        android:layout_alignBottom="@+id/view_Button"
+        android:layout_marginLeft="@dimen/pad_size_16dp"
+        android:layout_marginRight="@dimen/pad_size_16dp"
         android:text="@string/add_lists" />
 
     <Button

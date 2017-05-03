@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ViewListActivity extends AppCompatActivity {
@@ -32,7 +33,7 @@ public class ViewListActivity extends AppCompatActivity {
     final Context context = this;
     MyListAdapter adapter;
     DatabaseHandler dh;
-    ArrayList<String> entries = new ArrayList<>();
+    ArrayList<ListInfo> entries = new ArrayList<>();
 
     public ViewListActivity() {
     }
@@ -80,9 +81,8 @@ public class ViewListActivity extends AppCompatActivity {
         //Database handling, getting all the items adding them to an array list
         dh = new DatabaseHandler(this);
         final List<ListInfo> value = dh.getAll();
-        int loc = 0;
         //final ArrayList<String> entries = new ArrayList<>();
-        final ArrayList<String> entry = new ArrayList<>();
+        final ArrayList<ListInfo> entry = new ArrayList<>();
 
         //Puts data into view list
         for (ListInfo li : value) {
@@ -90,8 +90,7 @@ public class ViewListActivity extends AppCompatActivity {
             int active = li.getActive();
 
             if(active == 1) {
-                entries.add(loc, log);
-                loc++;
+                entries.add(li);
             }
         }
 
@@ -108,16 +107,23 @@ public class ViewListActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                List<ListInfo> item = dh.getOne(position);
+
+
+
+                System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
+                        + " viewlist postion " + position );
+
+                System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
+                        + " viewlist postion item " + adapter.getItem(position).getContents() );
+                List<ListInfo> item = dh.getOne(adapter.getItem(position).getID());
+
 
                 for (ListInfo li : item) {
-                    String log = li.getContents();
-
-                    entry.add(0, log);
+                    entry.add(0, li);
                 }
 
                 Intent intent = new Intent(ViewListActivity.this, Popup.class);
-                intent.putExtra("position", position);
+                intent.putExtra("position", adapter.getItem(position).getContents());
                 startActivity(intent);
                 //Toast.makeText(ViewListActivity.this, entry.get(0), Toast.LENGTH_SHORT).show();
             }
@@ -126,21 +132,34 @@ public class ViewListActivity extends AppCompatActivity {
 
 
 
-    private class MyListAdapter extends ArrayAdapter<String> {
+    private class MyListAdapter extends ArrayAdapter<ListInfo> {
 
         private int layout;
-        private List<String> mObjects;
+        private List<ListInfo> mObjects;
 
         //Default constructor
-        public MyListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<String> objects) {
+        public MyListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<ListInfo> objects) {
             super(context, resource, objects);
             mObjects = objects;
             layout = resource;
    }
 
+   public void showList(){
+       Iterator<ListInfo> li = mObjects.iterator();
+       for (int i = 0; i < mObjects.size(); i++){
+
+           System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
+                   + " list item " + mObjects.get(i).getContents() + "  indexposition   " + i );
+       }
+   }
+
         //Used for getting the view and creating the buttons etc
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
+            System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
+            + " list postion " + position );
+
+            showList();
             ViewHolder mainViewholder = null;
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -159,8 +178,15 @@ public class ViewListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     // Toast.makeText(getContext(), "The EDIT IMAGE was clicked for list item " + position, Toast.LENGTH_SHORT).show();
 
+
+                    System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
+                            + " list postion " + mObjects.get(position).getContents() );
+
+                    System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
+                            + " list postion " + mObjects.get(position).getID() );
+
                     Intent intent = new Intent(getContext(), Editing.class); //Links the class to the intended place to go
-                    intent.putExtra("position", position); //Passes in the position to be used
+                    intent.putExtra("position", mObjects.get(position).getID()); //Passes in the position to be used
                     startActivityForResult(intent, 1); //Start the activity and pass 1 as a resultCode
 
                 }
@@ -170,9 +196,11 @@ public class ViewListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(), "DELETE clicked @ " + position, Toast.LENGTH_SHORT).show();
-                    String toRemove = adapter.getItem(position);
+
+
+                    ListInfo toRemove = mObjects.get(position);
 //
-                    int lastPosition = getCount() - 1;
+                   // int lastPosition = getCount() - 1;
 //                    if(position == 0 || position == lastPosition){
 //                    dh.deleteItem(position -1);
 //                     Log.d("test", "delete at " + position);
@@ -181,11 +209,14 @@ public class ViewListActivity extends AppCompatActivity {
 //                    dh.deleteItem(position + 1);
 //                    Log.d("test", "delete at " + position);//This works for now but if you delete the last item it will crash because no +1 exists
 //                }
-                    adapter.remove(toRemove);
-                    dh.deleteItem(position);
+                    System.out.println("i am here " + toRemove.toString());
+                    dh.deleteItem(toRemove.getID());
+                    mObjects.remove(position);
+
                     Log.d("test", "delete at " + position);
 
                     adapter.notifyDataSetChanged();
+
 
                     //TODO: Get delete button working and dynamically updating the list
                     //dh.deleteItem(position);
@@ -195,7 +226,7 @@ public class ViewListActivity extends AppCompatActivity {
            }
             });
 
-            mainViewholder.title.setText(getItem(position));
+            mainViewholder.title.setText(getItem(position).toString());
             return convertView;
         }
     }
@@ -211,7 +242,8 @@ public class ViewListActivity extends AppCompatActivity {
             System.out.println("THE UPDATED NAME IS " + updatedName);
             System.out.println("THE POSITION IS " + position);
 
-            entries.set(position, updatedName); //Set the new name where the current position is
+            entries.get(position).setName(updatedName);
+            entries.set(position, entries.get(position)); //Set the new name where the current position is
             adapter.notifyDataSetChanged(); //update the viewlist
         }
     }

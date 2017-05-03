@@ -25,7 +25,7 @@
     <string name="date_button_set">Set Date</string>
     <string name="date_view_set">The Date is: </string>
     <string name="date_selected">Date Selected: </string>
-    <string name="date_created">Date Created: </string>
+    <string name="date_due">Date Due: </string>
 
     <string-array name="categories">
         <item>Shopping</item>

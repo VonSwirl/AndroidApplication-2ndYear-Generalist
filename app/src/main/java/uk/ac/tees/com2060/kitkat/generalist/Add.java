@@ -18,6 +18,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.ParseException;
 import java.util.Calendar;
 
 public class Add extends AppCompatActivity {
@@ -27,6 +29,7 @@ public class Add extends AppCompatActivity {
     public TextView dateView;
     int year, month, day;
     public static String returnName = "RETURNAME";
+    public long epochDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +40,21 @@ public class Add extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
+        System.out.println("===================================================================" + month);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        dateView = (TextView) findViewById(R.id.viewDate);
-        dateView.setText(new StringBuilder().append(day).append("/")
-                .append(month).append("/").append(year));
-        showDate(year, month + 1, day);
+        dateView = (TextView) findViewById(R.id.viewDateadd);
+
+        dateView.setText(String.format("%s/%s/%s", day, (month+1)%12, year));
+        String dateTxt = day + "/" + month + "/" + year;
+        //Convert from human readable date to epoch
+        try {
+            epochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateTxt).getTime() / 1000;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf ADD 54  ");
+        }
+
+        showDate(year, month, day);
 
         //Adds a Toolbar to this page and gives it a title
         Toolbar addBar = (Toolbar) findViewById(R.id.addBar);
@@ -97,8 +110,8 @@ public class Add extends AppCompatActivity {
                     public void onClick(View v) {
                         Log.d("Database:", "Inserting values..");  //For personal testing
                         Log.d("DatabaseTest", "adding + " + catResult);
-                        dh.addList(new ListInfo(name.getText().toString(), contents.getText().toString(), catResult, active, year, month, day));
-                        returnName =  ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
+                        dh.addList(new ListInfo(name.getText().toString(), contents.getText().toString(), catResult, active, epochDate));
+                        returnName = ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
                         Intent returnIntent = new Intent(); //Create a new return intent and pass the name and position
                         returnIntent.putExtra("updatedName", returnName);
                         returnIntent.putExtra("position", position);
@@ -145,16 +158,26 @@ public class Add extends AppCompatActivity {
                     // arg1 = year
                     // arg2 = month
                     // arg3 = day
-                    showDate(arg1, arg2 + 1, arg3);
+                    showDate(arg1, arg2, arg3);
                 }
             };
 
     private void showDate(int y, int m, int d) {
         dateView.setText(new StringBuilder().append(d).append("/")
                 .append(m).append("/").append(y));
-        year = y;
-        month = m;
-        day = d;
+        int year = y;
+        int month = m;
+        int day = d;
+        dateView.setText(new StringBuilder().append(day).append("/")
+                .append((month+1) % 12).append("/").append(year));
+        String dateTxt = day + "/" + month + "/" + year;
+        //Convert from human readable date to epoch
+        try {
+            epochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateTxt).getTime() / 1000;
+            System.out.println("showdateHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH == " + dateTxt);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 }
-

@@ -51,8 +51,7 @@
             android:textSize="15sp"
             android:layout_alignBaseline="@+id/editTextName"
             android:layout_alignBottom="@+id/editTextName"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/editTextName" />
+            android:layout_alignParentStart="true" />
 
         <EditText
             android:id="@+id/editTextName"
@@ -64,8 +63,8 @@
             android:hint="Name..."
             android:inputType="textPersonName"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:layout_below="@+id/viewDate"
-            android:layout_alignParentEnd="true"
+            android:layout_marginTop="11dp"
+            android:layout_below="@+id/dateTitle"
             android:layout_toEndOf="@+id/textView6" />
 
         <TextView
@@ -75,7 +74,8 @@
             android:layout_below="@+id/textView7"
             android:layout_marginTop="18dp"
             android:text="@string/list_contents"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:layout_alignEnd="@+id/textView5" />
 
         <EditText
             android:id="@+id/editTextContents"
@@ -112,27 +112,27 @@
             android:text="@string/cancel" />
 
         <TextView
-            android:id="@+id/viewDate"
-            android:layout_width="wrap_content"
+            android:id="@+id/viewDateadd"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:onClick="setDate"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/dateTitle"
-            android:layout_alignBottom="@+id/dateTitle" />
+            android:layout_alignStart="@+id/editTextName"
+            android:layout_alignEnd="@+id/editTextName" />
 
         <TextView
             android:id="@+id/dateTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/date_created"
+            android:text="@string/date_due"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="15sp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/editTextName"
-            android:layout_alignEnd="@+id/save_button" />
+            android:layout_alignEnd="@+id/textView5" />
 
     </RelativeLayout>
 
@@ -154,8 +154,8 @@
         android:id="@+id/ContentsSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="62dp"
-        android:layout_marginStart="83dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="80dp"
         android:layout_below="@+id/addBar"
         android:layout_alignStart="@+id/relativeLayout" />
 
