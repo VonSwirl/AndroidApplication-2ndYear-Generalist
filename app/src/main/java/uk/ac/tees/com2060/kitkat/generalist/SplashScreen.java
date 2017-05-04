@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 /**
- * Created by Rob
+ * Created by Rob on 26/04/2017.
  */
 
 public class SplashScreen extends Activity {
