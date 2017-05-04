@@ -88,10 +88,8 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
             android:textSize="14sp"
             android:layout_below="@+id/textView6"
-            android:layout_above="@+id/save_button"
             android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:gravity="top|left"/>
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:id="@+id/textView7"
