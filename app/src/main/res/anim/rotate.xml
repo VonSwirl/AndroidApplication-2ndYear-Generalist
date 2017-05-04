@@ -2,12 +2,11 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android">
 
     <rotate
-        android:duration = "2500"
+        android:duration = "2000"
         android:fromDegrees="0"
         android:toDegrees="360"
-        android:pivotX="50%"
-        android:pivotY="50%"
-        android:interpolator="@android:anim/cycle_interpolator">
+        android:pivotX="230"
+        android:pivotY="230">
 
     </rotate>
 

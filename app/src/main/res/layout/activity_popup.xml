@@ -7,19 +7,13 @@
     android:padding="7dip"
     tools:context="uk.ac.tees.com2060.kitkat.generalist.Popup">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/view_contents"
-            android:layout_width="258dp"
-            android:layout_height="498dp"
-            android:layout_marginTop="0dp"
-            android:text="@string/view_contents"
-            android:textSize="30sp" />
-    </ScrollView>
-
+    <TextView
+        android:id="@+id/view_contents"
+        android:layout_width="258dp"
+        android:layout_height="498dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/view_contents"
+        android:textSize="30sp" />
 
 
 </android.support.constraint.ConstraintLayout>
