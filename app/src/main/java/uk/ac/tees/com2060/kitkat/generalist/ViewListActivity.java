@@ -18,17 +18,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class ViewListActivity extends AppCompatActivity {
-
 
     final Context context = this;
     MyListAdapter adapter;
@@ -81,8 +78,10 @@ public class ViewListActivity extends AppCompatActivity {
         //Database handling, getting all the items adding them to an array list
         dh = new DatabaseHandler(this);
         final List<ListInfo> value = dh.getAll();
-        //final ArrayList<String> entries = new ArrayList<>();
+
         final ArrayList<ListInfo> entry = new ArrayList<>();
+
+        final ArrayList<String> listnames = new ArrayList<>();
 
         //Puts data into view list
         for (ListInfo li : value) {
@@ -100,6 +99,7 @@ public class ViewListActivity extends AppCompatActivity {
 
         adapter = new MyListAdapter(this, R.layout.view_row, entries);
         lv.setAdapter(adapter);
+
 
         System.out.println("THIS IS CALLED AT THE START AND WHEN PRESSING HOME");
 
@@ -122,6 +122,7 @@ public class ViewListActivity extends AppCompatActivity {
                     entry.add(0, li);
                 }
 
+
                 Intent intent = new Intent(ViewListActivity.this, Popup.class);
                 intent.putExtra("position", adapter.getItem(position).getContents());
                 startActivity(intent);
@@ -137,6 +138,7 @@ public class ViewListActivity extends AppCompatActivity {
         private int layout;
         private List<ListInfo> mObjects;
 
+
         //Default constructor
         public MyListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<ListInfo> objects) {
             super(context, resource, objects);
@@ -149,7 +151,7 @@ public class ViewListActivity extends AppCompatActivity {
        for (int i = 0; i < mObjects.size(); i++){
 
            System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-                   + " list item " + mObjects.get(i).getContents() + "  indexposition   " + i );
+                   + " list item " + mObjects.get(i).getName() + "  indexposition   " + i );
        }
    }
 
@@ -186,7 +188,8 @@ public class ViewListActivity extends AppCompatActivity {
                             + " list postion " + mObjects.get(position).getID() );
 
                     Intent intent = new Intent(getContext(), Editing.class); //Links the class to the intended place to go
-                    intent.putExtra("position", mObjects.get(position).getID()); //Passes in the position to be used
+                    intent.putExtra("id", mObjects.get(position).getID()); //Passes in the position to be used
+                    intent.putExtra("arrayIndex", position);
                     startActivityForResult(intent, 1); //Start the activity and pass 1 as a resultCode
 
                 }
@@ -231,19 +234,25 @@ public class ViewListActivity extends AppCompatActivity {
         }
     }
 
+
     //Gets the result from a returned activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             String updatedName = data.getStringExtra("updatedName"); //Get the updated name from the edit class
-            int position = data.getIntExtra("position",0); //Get the current position it was editing
+            int id = data.getIntExtra("id",0); //Get the current position it was editing
+            int arrayIndex = data.getIntExtra("arrayIndex", 0);
 
             System.out.println("THE UPDATED NAME IS " + updatedName);
-            System.out.println("THE POSITION IS " + position);
+            System.out.println("THE POSITION IS " + id);
+            System.out.println("THE ARRAYINDEX IS THIS IS USED FOR CHOSING WHICH ONE IS EDITED " + arrayIndex);
 
-            entries.get(position).setName(updatedName);
-            entries.set(position, entries.get(position)); //Set the new name where the current position is
+
+           adapter.mObjects.get(arrayIndex).setName(updatedName); //Set the new name where the current position is
+           // entries.set(position, entries.get(position));
+
+
             adapter.notifyDataSetChanged(); //update the viewlist
         }
     }
