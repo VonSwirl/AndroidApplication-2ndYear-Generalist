@@ -53,7 +53,7 @@ public class ListInfo {
     }
 
     public String toString(){
-        return  contents;
+        return  name;
     }
 
     public void setCategory(String category) {

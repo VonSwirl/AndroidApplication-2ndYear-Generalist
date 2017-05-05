@@ -50,14 +50,15 @@ public class Editing extends AppCompatActivity {
         dateView = (TextView) findViewById(R.id.viewDateedit);
 
         final Intent intent = getIntent();//Create new getIntent
-        final int position = intent.getIntExtra("position", 0); //Use it to pass the position from "ViewListActivity
+        final int id = intent.getIntExtra("id", 0); //Use it to pass the id from "ViewListActivity
+        final int arrayIndex = intent.getIntExtra("arrayIndex", 0); //Get the array index
         final DatabaseHandler dh = new DatabaseHandler(this);
 
         //This button is added to the toolbar as a home icon, see XML attached
         ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
 
         System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-                + " eddtingt postion " + String.valueOf(position) );
+                + " eddtingt postion " + String.valueOf(id) );
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,21 +91,23 @@ public class Editing extends AppCompatActivity {
 
 
         //Create a new List that will hold the current item
-        List<ListInfo> item;
+        //List<ListInfo> item;
 
-        //Pass the single item from the position into the List
-        item = dh.getOne(position);
+        //Pass the single item from the id into the List
+        //item = dh.getOne(id);
 
-        ListInfo testItem = dh.getOne(position).get(0);
+        ListInfo li = dh.getOne(id).get(0);
 
         System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-                + " eddtingt itemmm " + testItem.getContents() );
+                + " eddtingt itemmm " + li.getContents() );
 
         //Force a double digit for date 1 == 01, 9 == 09 etc...
         //DecimalFormat forceDoubleDigit = new DecimalFormat("00");
 
+
         //Create ListInfo class and for each item
-        for (ListInfo li : item) {
+
+
 
             //get the name, cat and contents & date
             String dbName = li.getName();
@@ -135,7 +138,7 @@ public class Editing extends AppCompatActivity {
                 int spinnerPosition = adapter.getPosition(dbCat);
                 mySpinner.setSelection(spinnerPosition);
             }
-        }
+
 
 
         //Saves current values to db
@@ -148,14 +151,15 @@ public class Editing extends AppCompatActivity {
                         //Should there be a try catch around this?
                         Log.d("Database:", "Updating Entry...");  //For personal testing
 
-                        //Position +1 because array list starts at 0. Getting all EditTexts and adding into db
-                        dh.updateByID(position + 1, name.getText().toString(), contents.getText().toString(), catResult, dbEpochDate);
+                        dh.updateByID(id, name.getText().toString(), contents.getText().toString(), catResult, dbEpochDate);
 
                         Toast.makeText(getApplicationContext(), "Saving", Toast.LENGTH_LONG).show();
                         returnName = ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
-                        Intent returnIntent = new Intent(); //Create a new return intent and pass the name and position
+                        Intent returnIntent = new Intent(); //Create a new return intent and pass the name and id
                         returnIntent.putExtra("updatedName", returnName);
-                        returnIntent.putExtra("position", position);
+                        //int arrayIndex = id -1;
+                        returnIntent.putExtra("id", id);
+                        returnIntent.putExtra("arrayIndex" , arrayIndex);
                         setResult(RESULT_OK, returnIntent); //set the result and pass the intent with the values
                         finish();
                     }
