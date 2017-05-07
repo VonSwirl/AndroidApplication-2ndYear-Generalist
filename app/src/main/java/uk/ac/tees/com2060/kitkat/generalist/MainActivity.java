@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                         //Links the class to the intended place to go
                         Intent intent = new Intent(calenderContext, Add.class);
                         intent.putExtra("mainActDateBoolean", true);
-                        intent.putExtra("mainActDate", epoch);
+                        intent.putExtra("mainActDate", dateClicked.getTime());
                         //Starts that activity
                         startActivity(intent);
                     }
