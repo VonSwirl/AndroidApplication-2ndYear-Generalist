@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Add extends AppCompatActivity {
 
@@ -35,16 +36,28 @@ public class Add extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+        Boolean fromMainCalender = getIntent().getExtras().getBoolean("mainActDateBoolean");
+        Date dateObj = new Date(getIntent().getExtras().getLong("mainActDate", 0));
 
-        //Elements require by the DatePicker Widget
-        Calendar calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        System.out.println("===================================================================" + month);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
+        if (fromMainCalender) {
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dateObj);
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH);
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        } else {
+            //Elements require by the DatePicker Widget
+            Calendar calendar = Calendar.getInstance();
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH);
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+        }
+
         dateView = (TextView) findViewById(R.id.viewDateadd);
 
-        dateView.setText(String.format("%s/%s/%s", day, (month+1)%12, year));
+        dateView.setText(String.format("%s/%s/%s", day, (month + 1) % 12, year));
         String dateTxt = day + "/" + month + "/" + year;
         //Convert from human readable date to epoch
         try {
@@ -169,7 +182,7 @@ public class Add extends AppCompatActivity {
         int month = m;
         int day = d;
         dateView.setText(new StringBuilder().append(day).append("/")
-                .append((month+1) % 12).append("/").append(year));
+                .append((month + 1) % 12).append("/").append(year));
         String dateTxt = day + "/" + month + "/" + year;
         //Convert from human readable date to epoch
         try {

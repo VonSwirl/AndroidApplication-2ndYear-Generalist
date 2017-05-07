@@ -35,7 +35,6 @@ public class ViewListActivity extends AppCompatActivity {
     public ViewListActivity() {
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

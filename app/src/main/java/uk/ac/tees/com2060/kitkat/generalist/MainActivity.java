@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -94,9 +95,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDayClick(final Date dateClicked) {
                 calenderContext = getApplicationContext();
-
                 //How to get the current epoch time in ...
-                final long datePicked = System.currentTimeMillis() / 1000;
+                //final long datePicked = System.currentTimeMillis() / 1000;
+
+                String str = dateClicked.toString();
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = dateClicked;
+                try {
+                    date = df.parse(str);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                final long epoch = date.getTime();
 
                 //Convert from epoch to human readable date
                 //String date = new java.text.SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date(datePicked * 1000));
@@ -113,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //Links the class to the intended place to go
                         Intent intent = new Intent(calenderContext, Add.class);
-                        intent.putExtra("mainDate", datePicked);
+                        intent.putExtra("mainActDateBoolean", true);
+                        intent.putExtra("mainActDate", dateClicked.getTime());
                         //Starts that activity
                         startActivity(intent);
                     }
