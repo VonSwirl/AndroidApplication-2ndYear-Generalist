@@ -14,9 +14,7 @@ import android.widget.Button;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 //import com.google.android.gms.appindexing.Action;
 //import com.google.android.gms.appindexing.AppIndex;
@@ -26,7 +24,6 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     CompactCalendarView myMainCalender;
-    private SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMMM- yyyy", Locale.getDefault());
     private AlertDialog.Builder aDialogBox;
     private Context calenderContext;
 
@@ -46,13 +43,11 @@ public class MainActivity extends AppCompatActivity {
         //Get a reference to the Button object in the layout (XML) file (the button that is linked on the screen)
         final Context context = this;
         final Context contxt = this;
-
         myMainCalender = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         myMainCalender.setUseThreeLetterAbbreviation(true);
-
         //this should highlight the calender on  Sun, 21 May 2017 11:28:41 GMT
         //with the cyan color this is a test...
-        Event ev1 = new Event(Color.BLUE, 1494334364L, "Jay testing 21 may");
+        Event ev1 = new Event(Color.BLUE,  1494850434L, "Jay testing 21 may");
         myMainCalender.addEvent(ev1);
 
         // Setting Dialog Message
