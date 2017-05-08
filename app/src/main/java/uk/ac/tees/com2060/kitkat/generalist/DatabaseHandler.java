@@ -55,7 +55,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Drop older table if exists and create a new
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
-
     }
 
     public long addList(ListInfo list) {
@@ -96,7 +95,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int categoryIdx = cursor.getColumnIndex(COL_CAT);
             int activeIdx = cursor.getColumnIndex(COL_ACTIVE);
             int dateIdx = cursor.getColumnIndex(COL_DATE);
-
 
             do {
                 // Create list object for current database record

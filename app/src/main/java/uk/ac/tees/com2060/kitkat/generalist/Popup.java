@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -28,41 +27,14 @@ public class Popup extends AppCompatActivity {
 
         getWindow().setLayout((int) (width * .85), (int) (height * .75)); //Sets the size of the popup window
 
-
         final TextView viewContents = (TextView) findViewById(R.id.view_contents);
        // Button cnclBtn = (Button) findViewById(R.id.cancel_button);
 
         Intent intent = getIntent();//Create new getIntent
         final String content = intent.getStringExtra("position"); //Use it to pass the position from "ViewListActivity"
-        System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-                +    " popup " + content );
 
-
-        //final DatabaseHandler dh = new DatabaseHandler(this);
-        //List<String> item; //Create a new List that will hold the current item
-       /// ListInfo item = dh.getOne(position).get(0); //Pass the single item from the position into the List
        viewContents.setText(content);
-      //  for (ListInfo li : item) { //Create ListInfo class and for each item
 
-            //get the name, cat and contents
-       //     String dbCont = li.getContents();
-
-            //Set the values to the current ExitText
-      //      viewContents.setText(dbCont);
-       // }
-
-      /*  cnclBtn.setOnClickListener( //Cancel current activity
-
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v){
-                        finish();
-                    }
-                }
-        );
-
-*/
 
     }
 }

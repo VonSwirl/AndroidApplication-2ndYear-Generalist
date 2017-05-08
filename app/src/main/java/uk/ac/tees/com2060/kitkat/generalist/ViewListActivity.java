@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -80,14 +81,11 @@ public class ViewListActivity extends AppCompatActivity {
 
         final ArrayList<ListInfo> entry = new ArrayList<>();
 
-        final ArrayList<String> listnames = new ArrayList<>();
-
         //Puts data into view list
         for (ListInfo li : value) {
-            String log = li.getName();
             int active = li.getActive();
 
-            if(active == 1) {
+            if (active == 1) {
                 entries.add(li);
             }
         }
@@ -99,66 +97,48 @@ public class ViewListActivity extends AppCompatActivity {
         adapter = new MyListAdapter(this, R.layout.view_row, entries);
         lv.setAdapter(adapter);
 
-
-        System.out.println("THIS IS CALLED AT THE START AND WHEN PRESSING HOME");
-
         //Listener for when the list has been pressed, This will show up what is in the list currently
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-
-                System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-                        + " viewlist postion " + position );
-
-                System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-                        + " viewlist postion item " + adapter.getItem(position).getContents() );
                 List<ListInfo> item = dh.getOne(adapter.getItem(position).getID());
-
 
                 for (ListInfo li : item) {
                     entry.add(0, li);
                 }
-
 
                 Intent intent = new Intent(ViewListActivity.this, Popup.class);
                 intent.putExtra("position", adapter.getItem(position).getContents());
                 startActivity(intent);
                 //Toast.makeText(ViewListActivity.this, entry.get(0), Toast.LENGTH_SHORT).show();
             }
- });
-  }
-
-
+        });
+    }
 
     private class MyListAdapter extends ArrayAdapter<ListInfo> {
 
         private int layout;
         private List<ListInfo> mObjects;
 
-
         //Default constructor
         public MyListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<ListInfo> objects) {
             super(context, resource, objects);
             mObjects = objects;
             layout = resource;
-   }
+        }
 
-   public void showList(){
-       Iterator<ListInfo> li = mObjects.iterator();
-       for (int i = 0; i < mObjects.size(); i++){
-
-           System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-                   + " list item " + mObjects.get(i).getName() + "  indexposition   " + i );
-       }
-   }
+        public void showList() {
+            Iterator<ListInfo> li = mObjects.iterator();
+            for (int i = 0; i < mObjects.size(); i++) {
+                System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
+                        + " list item " + mObjects.get(i).getName() + "  indexposition   " + i);
+            }
+        }
 
         //Used for getting the view and creating the buttons etc
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-            + " list postion " + position );
 
             showList();
             ViewHolder mainViewholder = null;
@@ -171,26 +151,16 @@ public class ViewListActivity extends AppCompatActivity {
                 viewHolder.editBtn = (ImageButton) convertView.findViewById(R.id.list_item_editBtn);
                 viewHolder.delBtn = (ImageButton) convertView.findViewById(R.id.list_item_delBtn);
                 convertView.setTag(viewHolder);
-  }
+            }
             mainViewholder = (ViewHolder) convertView.getTag();
 
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Toast.makeText(getContext(), "The EDIT IMAGE was clicked for list item " + position, Toast.LENGTH_SHORT).show();
-
-
-                    System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-                            + " list postion " + mObjects.get(position).getContents() );
-
-                    System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-                            + " list postion " + mObjects.get(position).getID() );
-
                     Intent intent = new Intent(getContext(), Editing.class); //Links the class to the intended place to go
                     intent.putExtra("id", mObjects.get(position).getID()); //Passes in the position to be used
                     intent.putExtra("arrayIndex", position);
                     startActivityForResult(intent, 1); //Start the activity and pass 1 as a resultCode
-
                 }
             });
 
@@ -199,18 +169,8 @@ public class ViewListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Toast.makeText(getContext(), "DELETE clicked @ " + position, Toast.LENGTH_SHORT).show();
 
-
                     ListInfo toRemove = mObjects.get(position);
-//
-                   // int lastPosition = getCount() - 1;
-//                    if(position == 0 || position == lastPosition){
-//                    dh.deleteItem(position -1);
-//                     Log.d("test", "delete at " + position);
-//                }
-//                    else {
-//                    dh.deleteItem(position + 1);
-//                    Log.d("test", "delete at " + position);//This works for now but if you delete the last item it will crash because no +1 exists
-//                }
+
                     System.out.println("i am here " + toRemove.toString());
                     dh.deleteItem(toRemove.getID());
                     mObjects.remove(position);
@@ -225,7 +185,7 @@ public class ViewListActivity extends AppCompatActivity {
                     //Have to use a method like these to update the current listview?
                     //notifyDataSetChanged();
                     //adapter.notifyDataSetChanged();
-           }
+                }
             });
 
             mainViewholder.title.setText(getItem(position).toString());
@@ -233,24 +193,17 @@ public class ViewListActivity extends AppCompatActivity {
         }
     }
 
-
     //Gets the result from a returned activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             String updatedName = data.getStringExtra("updatedName"); //Get the updated name from the edit class
-            int id = data.getIntExtra("id",0); //Get the current position it was editing
+            int id = data.getIntExtra("id", 0); //Get the current position it was editing
             int arrayIndex = data.getIntExtra("arrayIndex", 0);
 
-            System.out.println("THE UPDATED NAME IS " + updatedName);
-            System.out.println("THE POSITION IS " + id);
-            System.out.println("THE ARRAYINDEX IS THIS IS USED FOR CHOSING WHICH ONE IS EDITED " + arrayIndex);
-
-
-           adapter.mObjects.get(arrayIndex).setName(updatedName); //Set the new name where the current position is
-           // entries.set(position, entries.get(position));
-
+            adapter.mObjects.get(arrayIndex).setName(updatedName); //Set the new name where the current position is
+            // entries.set(position, entries.get(position));
 
             adapter.notifyDataSetChanged(); //update the viewlist
         }

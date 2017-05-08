@@ -14,7 +14,6 @@ import android.widget.Button;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -31,11 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder aDialogBox;
     private Context calenderContext;
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    // private GoogleApiClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -95,49 +89,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDayClick(final Date dateClicked) {
                 calenderContext = getApplicationContext();
-                //How to get the current epoch time in ...
-                //final long datePicked = System.currentTimeMillis() / 1000;
-
-                String str = dateClicked.toString();
-                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                Date date = dateClicked;
-                try {
-                    date = df.parse(str);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                final long epoch = date.getTime();
-
-                //Convert from epoch to human readable date
-                //String date = new java.text.SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date(datePicked * 1000));
-
-                //Convert from human readable date to epoch
-                //long epoch = new java.text.SimpleDateFormat("MM/dd/yyyy").parse("01/01/1970").getTime() / 1000;
-
                 aDialogBox = new AlertDialog.Builder(context);
                 aDialogBox.setTitle("Created New List");
                 aDialogBox.setMessage("Would you like to create a new list for this date?");
 
-                // Setting "Yes" Button
+                // Setting Listener for "Yes" Button.
                 aDialogBox.setPositiveButton("Yes Please", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+
                         //Links the class to the intended place to go
                         Intent intent = new Intent(calenderContext, Add.class);
                         intent.putExtra("mainActDateBoolean", true);
                         intent.putExtra("mainActDate", dateClicked.getTime());
-                        //Starts that activity
+
+                        //Starts that activity.
                         startActivity(intent);
                     }
                 });
 
-                // Setting "NO" Button
+                // Setting Listener for "NO" Button.
                 aDialogBox.setNegativeButton("No Thanks,", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
 
-                // Showing Alert Message
+                // Displays the dialog to the user.
                 aDialogBox.show();
             }
 
@@ -154,14 +131,16 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, Add.class); //Links the class to the intended place to go
-                        startActivity(intent); //Starts that activity
+                        //Links the class to the intended place to go
+                        Intent intent = new Intent(context, Add.class);
+
+                        //Starts that activity
+                        startActivity(intent);
                     }
                 }
         );
 
         //Get a reference to the Button object in the layout (XML) file (the button that is linked on the screen)
-
         Button viewBtn = (Button) findViewById(R.id.view_Button);
 
         //Add event listener to button
@@ -169,77 +148,22 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(contxt, ViewListActivity.class); //Links the class to the intended place to go
-                        startActivity(intent); //Starts that activity
+                        //Links the class to the intended place to go
+                        Intent intent = new Intent(contxt, ViewListActivity.class);
+
+                        //Starts that activity
+                        startActivity(intent);
                     }
                 }
         );
-
-   /*     class CalendarActivity extends AppCompatActivity {
-
-            CalendarView calendar;
-
-            @Override
-            protected void onCreate(Bundle savedInstanceState) {
-                super.onCreate(savedInstanceState);
-                setContentView(R.layout.activity_main);
-
-                calendar = (CalendarView) findViewById(R.id.calendar);
-                calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-
-                    @Override
-                    public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
-                        Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        }*/
-
-
-        //Creating calendar for dashboard
-
-
-        //Intent intent2 = new Intent(context, ViewList.class); //Links the class to the indened place to go
-        //startActivity(intent2); //Starts that activity
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-
-
-        //  client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+    //COMMENT BLOCK BELOW ARE TO ASSIST WITH THE EPOCH CONVERSION
+                /*How to get the current epoch time in ...
+                final long datePicked = System.currentTimeMillis() / 1000;
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
+                Convert from epoch to human readable date
+                String date = new java.text.SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date(datePicked * 1000));
 
-     public Action getIndexApiAction() {
-     Thing object = new Thing.Builder()
-     .setName("Home Page") // TODO: Define a title for the content shown.
-     // TODO: Make sure this auto-generated URL is correct.
-     .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-     .build();
-     return new Action.Builder(Action.TYPE_VIEW)
-     .setObject(object)
-     .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-     .build();
-     }
-
-     @Override public void onStart() {
-     super.onStart();
-
-     // ATTENTION: This was auto-generated to implement the App Indexing API.
-     // See https://g.co/AppIndexing/AndroidStudio for more information.
-     client.connect();
-     AppIndex.AppIndexApi.start(client, getIndexApiAction());
-     }
-
-     @Override public void onStop() {
-     super.onStop();
-
-     // ATTENTION: This was auto-generated to implement the App Indexing API.
-     // See https://g.co/AppIndexing/AndroidStudio for more information.
-     AppIndex.AppIndexApi.end(client, getIndexApiAction());
-     client.disconnect();
-     }*/
+                Convert from human readable date to epoch
+                long epoch = new java.text.SimpleDateFormat("MM/dd/yyyy").parse("01/01/1970").getTime() / 1000;*/
 }
