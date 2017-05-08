@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#581324e4"
+    android:background="#388E3C"
     android:padding="7dip"
     tools:context="uk.ac.tees.com2060.kitkat.generalist.SplashScreen">
 

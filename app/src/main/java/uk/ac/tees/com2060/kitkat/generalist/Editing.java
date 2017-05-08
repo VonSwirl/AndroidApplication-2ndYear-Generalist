@@ -25,6 +25,7 @@ public class Editing extends AppCompatActivity {
     private String catResult = "";
     public TextView dateView;
     public static String returnName = "RETURNAME";
+    public static String returnContents = "RETURNCONTENTS";
     public long dbEpochDate;
 
     @Override
@@ -126,10 +127,12 @@ public class Editing extends AppCompatActivity {
                         dh.updateByID(id, name.getText().toString(), contents.getText().toString(), catResult, dbEpochDate);
                         Toast.makeText(getApplicationContext(), "Saving", Toast.LENGTH_LONG).show();
                         returnName = ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
+                        returnContents = ((EditText) findViewById(R.id.editTextContents)).getText().toString();
                         Intent returnIntent = new Intent(); //Create a new return intent and pass the name and id
 
                         //Returns intents once method has completed.
                         returnIntent.putExtra("updatedName", returnName);
+                        returnIntent.putExtra("updatedContents", returnContents);
                         returnIntent.putExtra("id", id);
                         returnIntent.putExtra("arrayIndex", arrayIndex);
                         setResult(RESULT_OK, returnIntent); //set the result and pass the intent with the values

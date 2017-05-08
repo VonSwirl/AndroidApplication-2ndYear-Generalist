@@ -91,4 +91,13 @@
         android:layout_centerHorizontal="true"
         android:text="View Map"/>
 
+    <TextView
+        android:id="@+id/main_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/relativeLayout2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="33dp"
+        android:text="Slide to change month" />
+
 </RelativeLayout>

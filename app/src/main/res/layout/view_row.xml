@@ -7,40 +7,56 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <ImageView
-        android:id="@+id/list_item_thumbnail"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@mipmap/ic_launcher" />
-
     <TextView
         android:id="@+id/list_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="TextView"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/list_item_thumbnail"
-        android:text="TextView" />
+        android:layout_toEndOf="@+id/list_item_tickbox" />
 
     <ImageButton
         android:id="@+id/list_item_delBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/list_item_thumbnail"
         android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/list_item_text"
+        android:layout_marginEnd="11dp"
+        android:background="@color/colorWhite"
         android:onClick="del_click"
-        app:srcCompat="@android:drawable/btn_dialog" />
+        android:tint="@android:color/holo_red_dark"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
 
     <ImageButton
         android:id="@+id/list_item_editBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/list_item_delBtn"
-        android:layout_marginEnd="54dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/list_item_delBtn"
+        android:background="@color/colorWhite"
         android:onClick="edit_click"
+        android:tint="@android:color/holo_green_dark"
         app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <CheckBox
+        android:id="@+id/list_item_tickbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_alignTop="@+id/list_item_text"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date Due"
+        android:layout_below="@+id/list_item_text"
+        android:layout_alignStart="@+id/list_item_text" />
 
 
 </RelativeLayout>
