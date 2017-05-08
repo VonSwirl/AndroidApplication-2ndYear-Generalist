@@ -166,6 +166,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        Button placesBtn = (Button) findViewById(R.id.places_Button);
+
+        placesBtn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Links the class to the intended place to go
+                        Intent intent = new Intent(context, PlacePickerActivity.class);
+
+
+                        //Starts that activity
+                        startActivity(intent);
+                    }
+                }
+        );
+
     }
     //COMMENT BLOCK BELOW ARE TO ASSIST WITH THE EPOCH CONVERSION
                 /*How to get the current epoch time in ...
