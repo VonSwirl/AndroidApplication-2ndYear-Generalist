@@ -14,9 +14,7 @@ import android.widget.Button;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 //import com.google.android.gms.appindexing.Action;
 //import com.google.android.gms.appindexing.AppIndex;
@@ -26,7 +24,6 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     CompactCalendarView myMainCalender;
-    private SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMMM- yyyy", Locale.getDefault());
     private AlertDialog.Builder aDialogBox;
     private Context calenderContext;
 
@@ -46,20 +43,16 @@ public class MainActivity extends AppCompatActivity {
         //Get a reference to the Button object in the layout (XML) file (the button that is linked on the screen)
         final Context context = this;
         final Context contxt = this;
-
         myMainCalender = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         myMainCalender.setUseThreeLetterAbbreviation(true);
 
-        //this should highlight the calender on  Sun, 21 May 2017 11:28:41 GMT
-        //with the cyan color this is a test...
-        Event ev1 = new Event(Color.BLUE, 1494334364L, "Jay testing 21 may");
+        //Adding Events to the calender Example
+        Event ev1 = new Event(Color.RED, 1495292844000L, "Mums Birthday");
         myMainCalender.addEvent(ev1);
-
-        // Setting Dialog Message
-        //alertDialog.setMessage("Are you sure you want delete this?");
-
-        // Setting Icon to Dialog
-        // alertDialog.setIcon(R.drawable.);
+        ev1 = new Event(Color.GREEN, 1495465644000L, "Get Pills");
+        myMainCalender.addEvent(ev1);
+        ev1 = new Event(Color.YELLOW, 1496070444000L, "Book Flights");
+        myMainCalender.addEvent(ev1);
 
 
 //READ BELOW DONT DELETE THIS BLOCK----JAY
