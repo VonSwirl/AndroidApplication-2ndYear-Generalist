@@ -1,5 +1,8 @@
 package uk.ac.tees.com2060.kitkat.generalist;
 
+/**
+ * Created by Reece Hawkins on 08/05/2017.
+ */
 
 import android.app.Activity;
 import android.content.Intent;
