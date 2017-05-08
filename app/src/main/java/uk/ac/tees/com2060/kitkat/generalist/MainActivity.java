@@ -45,16 +45,14 @@ public class MainActivity extends AppCompatActivity {
         final Context contxt = this;
         myMainCalender = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         myMainCalender.setUseThreeLetterAbbreviation(true);
-        //this should highlight the calender on  Sun, 21 May 2017 11:28:41 GMT
-        //with the cyan color this is a test...
-        Event ev1 = new Event(Color.BLUE,  1494850434L, "Jay testing 21 may");
+
+        //Adding Events to the calender Example
+        Event ev1 = new Event(Color.RED, 1495292844000L, "Mums Birthday");
         myMainCalender.addEvent(ev1);
-
-        // Setting Dialog Message
-        //alertDialog.setMessage("Are you sure you want delete this?");
-
-        // Setting Icon to Dialog
-        // alertDialog.setIcon(R.drawable.);
+        ev1 = new Event(Color.GREEN, 1495465644000L, "Get Pills");
+        myMainCalender.addEvent(ev1);
+        ev1 = new Event(Color.YELLOW, 1496070444000L, "Book Flights");
+        myMainCalender.addEvent(ev1);
 
 
 //READ BELOW DONT DELETE THIS BLOCK----JAY
