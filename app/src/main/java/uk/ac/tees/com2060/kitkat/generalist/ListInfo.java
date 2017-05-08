@@ -13,6 +13,7 @@ public class ListInfo {
     private String category;
     private int active;
     private long epochDate;
+    private int checked;
 
     public long getEpochDate() {
         return epochDate;
@@ -21,6 +22,10 @@ public class ListInfo {
     public void setEpochDate(long epochDate) {
         this.epochDate = epochDate;
     }
+
+    public int getChecked() { return checked; }
+
+    public void setChecked(int checked) { this.checked = checked; }
 
     public int getActive() {
         return active;
@@ -66,16 +71,19 @@ public class ListInfo {
         this.contents = contents;
     }
 
-    public ListInfo(String name, String contents, String category, int active, long date) {
+    //Used for saving/updating all
+    public ListInfo(String name, String contents, String category, int active, long date, int checked) {
 
         this.name = name;
         this.category = category;
         this.contents = contents;
         this.active = active;
         this.epochDate = date;
+        this.checked = checked;
     }
 
-    public ListInfo(int ID, String name, String contents, String category, int active, long date) {
+    //Used for saving/updating by a single ID
+    public ListInfo(int ID, String name, String contents, String category, int active, long date, int checked) {
 
         this.ID = ID;
         this.name = name;
@@ -83,5 +91,6 @@ public class ListInfo {
         this.category = category;
         this.active = active;
         this.epochDate = date;
+        this.checked = checked;
     }
 }

@@ -28,6 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COL_CONTENTS = "contents";
     private static final String COL_CAT = "category";
     private static final String COL_DATE = "date";
+    private static final String COL_CHECKED = "checked";
 
     //default constructor
     public DatabaseHandler(Context context) {
@@ -44,7 +45,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_CONTENTS + " TEXT,"
                 + COL_CAT + " TEXT,"
                 + COL_ACTIVE + " INTEGER,"
-                + COL_DATE + " INTEGER"
+                + COL_DATE + " INTEGER,"
+                + COL_CHECKED + " INTEGER"
                 + ")";
         // Execute/run create SQL statement
         db.execSQL(CREATE_CONTACTS_TABLE);
@@ -67,7 +69,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_CAT, list.getCategory());
         values.put(COL_ACTIVE, list.getActive());
         values.put(COL_DATE, list.getEpochDate());
-
+        values.put(COL_CHECKED, list.getChecked());
         //Id not needed because auto inc
 
         //Add record to db and get id of new record( must be long )
@@ -95,6 +97,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int categoryIdx = cursor.getColumnIndex(COL_CAT);
             int activeIdx = cursor.getColumnIndex(COL_ACTIVE);
             int dateIdx = cursor.getColumnIndex(COL_DATE);
+            int checkedIdx = cursor.getColumnIndex(COL_CHECKED);
 
             do {
                 // Create list object for current database record
@@ -104,7 +107,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(contentIdx),
                         cursor.getString(categoryIdx),
                         cursor.getInt(activeIdx),
-                        cursor.getLong(dateIdx)
+                        cursor.getLong(dateIdx),
+                        cursor.getInt(checkedIdx)
                 );
 
                 item.add(usrList);
@@ -134,6 +138,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int categoryIdx = cursor.getColumnIndex(COL_CAT);
             int activeIdx = cursor.getColumnIndex(COL_ACTIVE);
             int dateIdx = cursor.getColumnIndex(COL_DATE);
+            int checkedIdx = cursor.getColumnIndex(COL_CHECKED);
 
             do {
                 // Create lecturer object for current database record
@@ -143,7 +148,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(contentIdx),
                         cursor.getString(categoryIdx),
                         cursor.getInt(activeIdx),
-                        cursor.getLong(dateIdx)
+                        cursor.getLong(dateIdx),
+                        cursor.getInt(checkedIdx)
                 );
 
                 list.add(usrList);
@@ -162,7 +168,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_CONTENTS, content);
         values.put(COL_CAT, cat);
         values.put(COL_DATE, date);
+        //values.put(COL_CHECKED, checked);
         db.update(TABLE_NAME, values, COL_ID + "=" + id, null);
+    }
+
+    //Simple method for updating the check boxes
+    public void updateChecked(int id, int checked){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues value = new ContentValues();
+        value.put(COL_CHECKED, checked);
+        db.update(TABLE_NAME, value, COL_ID + "=" + id, null);
     }
 
     public void removeAll() {
