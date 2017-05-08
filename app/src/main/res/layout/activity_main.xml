@@ -78,7 +78,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/pad_size_16dp"
-        android:text="@string/view_lists" />
+        android:text="@string/view_lists"/>
 
     <Button
         android:id="@+id/view_Map_Button"
@@ -89,7 +89,19 @@
         android:layout_alignBaseline="@+id/addButton"
         android:layout_alignBottom="@+id/addButton"
         android:layout_centerHorizontal="true"
-        android:text="View Map"/>
+        android:text="@string/title_activity_maps"/>
+
+    <Button
+        android:id="@+id/places_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_size_16dp"
+        android:layout_marginRight="@dimen/pad_size_16dp"
+        android:text="Place Picker"
+        android:layout_alignBottom="@+id/relativeLayout2"
+        android:layout_centerHorizontal="true" />
+
+
 
     <TextView
         android:id="@+id/main_info"

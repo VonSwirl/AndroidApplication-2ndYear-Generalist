@@ -36,6 +36,7 @@
         <item>Custom</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_place_picker">Map</string>
 
 
 </resources>
