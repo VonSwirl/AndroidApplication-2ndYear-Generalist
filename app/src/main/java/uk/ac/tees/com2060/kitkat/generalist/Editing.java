@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,10 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
-import java.util.List;
 
 public class Editing extends AppCompatActivity {
-
 
     private String catResult = "";
     public TextView dateView;
@@ -57,8 +54,6 @@ public class Editing extends AppCompatActivity {
         //This button is added to the toolbar as a home icon, see XML attached
         ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
 
-        System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-                + " eddtingt postion " + String.valueOf(id) );
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,57 +84,37 @@ public class Editing extends AppCompatActivity {
             }
         });
 
-
-        //Create a new List that will hold the current item
-        //List<ListInfo> item;
-
-        //Pass the single item from the id into the List
-        //item = dh.getOne(id);
-
         ListInfo li = dh.getOne(id).get(0);
 
-        System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-                + " eddtingt itemmm " + li.getContents() );
+        //get the name, cat and contents & date.
+        String dbName = li.getName();
+        String dbCat = li.getCategory();
+        String dbCont = li.getContents();
+        dbEpochDate = li.getEpochDate();
+        name.setText(dbName);
+        contents.setText(dbCont);
 
-        //Force a double digit for date 1 == 01, 9 == 09 etc...
-        //DecimalFormat forceDoubleDigit = new DecimalFormat("00");
+        //Converts the database epoch date to a user readable format.
+        String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate * 1000));
+        String[] dismantle = dateInString.split("/");
+        String dayStr = dismantle[0];
+        String monthStr = dismantle[1];
+        String yearStr = dismantle[2];
+        int day = Integer.parseInt(dayStr);
+        int month = Integer.parseInt(monthStr);
+        month = month + 1;
+        int year = Integer.parseInt(yearStr);
 
+        //This date is used to display date to the user via the xml dateView
+        dateView.setText(new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
 
-        //Create ListInfo class and for each item
-
-
-
-            //get the name, cat and contents & date
-            String dbName = li.getName();
-            String dbCat = li.getCategory();
-            String dbCont = li.getContents();
-            dbEpochDate = li.getEpochDate();
-
-            String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate * 1000));
-            String[] dismantle = dateInString.split("/");
-            String dayStr = dismantle[0];
-            String monthStr = dismantle[1];
-            String yearStr = dismantle[2];
-            int day = Integer.parseInt(dayStr);
-            int month = Integer.parseInt(monthStr);
-            month = month + 1;
-            int year = Integer.parseInt(yearStr);
-            System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ" +
-                    "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz   == " + month);
-            dateView.setText(new StringBuilder().append(day).append("/")
-                    .append(month).append("/").append(year));
-
-            name.setText(dbName);
-            contents.setText(dbCont);
-
-            //Compares the value with the category pulled from DB and then sets it on the spinner
-            mySpinner.setAdapter(adapter);
-            if (!dbCat.equals(null)) {
-                int spinnerPosition = adapter.getPosition(dbCat);
-                mySpinner.setSelection(spinnerPosition);
-            }
-
-
+        //Compares the value with the category pulled from DB and then sets it on the spinner
+        mySpinner.setAdapter(adapter);
+        if (!dbCat.equals(null)) {
+            int spinnerPosition = adapter.getPosition(dbCat);
+            mySpinner.setSelection(spinnerPosition);
+        }
 
         //Saves current values to db
         svBtn.setOnClickListener(
@@ -148,25 +123,24 @@ public class Editing extends AppCompatActivity {
 
                     @Override
                     public void onClick(View v) {
-                        //Should there be a try catch around this?
-                        Log.d("Database:", "Updating Entry...");  //For personal testing
-
                         dh.updateByID(id, name.getText().toString(), contents.getText().toString(), catResult, dbEpochDate);
-
                         Toast.makeText(getApplicationContext(), "Saving", Toast.LENGTH_LONG).show();
                         returnName = ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
                         Intent returnIntent = new Intent(); //Create a new return intent and pass the name and id
+
+                        //Returns intents once method has completed.
                         returnIntent.putExtra("updatedName", returnName);
-                        //int arrayIndex = id -1;
                         returnIntent.putExtra("id", id);
-                        returnIntent.putExtra("arrayIndex" , arrayIndex);
+                        returnIntent.putExtra("arrayIndex", arrayIndex);
                         setResult(RESULT_OK, returnIntent); //set the result and pass the intent with the values
+                        dh.close();
                         finish();
                     }
                 }
         );
 
-        cnclBtn.setOnClickListener( //Cancel current activity
+        //Cancel current activity
+        cnclBtn.setOnClickListener(
 
                 new View.OnClickListener() {
 
@@ -212,10 +186,9 @@ public class Editing extends AppCompatActivity {
 
     private void showDate(int y, int m, int d) {
         dateView.setText(new StringBuilder().append(d).append("/")
-                .append(m+1 % 12).append("/").append(y));
+                .append(m + 1 % 12).append("/").append(y));
         String dateShow = d + "/" + m + "/" + y;
-        System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbBBBBB" +
-                "BBBBBBBBBBBBBBBBBBBBBBBBBB == " + dateShow);
+
         //Convert from human readable date to epoch
         try {
             dbEpochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateShow).getTime() / 1000;

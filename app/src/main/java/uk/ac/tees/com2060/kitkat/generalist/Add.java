@@ -31,16 +31,22 @@ public class Add extends AppCompatActivity {
     int year, month, day;
     public static String returnName = "RETURNAME";
     public long epochDate;
+    private Boolean fromMainCalender = false;
+    private Date dateObj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-        Boolean fromMainCalender = getIntent().getExtras().getBoolean("mainActDateBoolean");
-        Date dateObj = new Date(getIntent().getExtras().getLong("mainActDate", 0));
+        try {
+            fromMainCalender = getIntent().getExtras().getBoolean("mainActDateBoolean");
+            dateObj = new Date(getIntent().getExtras().getLong("mainActDate", 0));
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
 
         if (fromMainCalender) {
-
+            //Date is equal to the main activity calender date if intent is from the mainActivity.
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(dateObj);
             year = calendar.get(Calendar.YEAR);
@@ -48,7 +54,7 @@ public class Add extends AppCompatActivity {
             day = calendar.get(Calendar.DAY_OF_MONTH);
 
         } else {
-            //Elements require by the DatePicker Widget
+            //Date is equal to the current date if intent is from the add list
             Calendar calendar = Calendar.getInstance();
             year = calendar.get(Calendar.YEAR);
             month = calendar.get(Calendar.MONTH);
@@ -64,7 +70,6 @@ public class Add extends AppCompatActivity {
             epochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateTxt).getTime() / 1000;
         } catch (ParseException e) {
             e.printStackTrace();
-            System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf ADD 54  ");
         }
 
         showDate(year, month, day);
@@ -87,7 +92,6 @@ public class Add extends AppCompatActivity {
         });
 
         final DatabaseHandler dh = new DatabaseHandler(this);
-
         Button svBtn = (Button) findViewById(R.id.save_button);
         Button cnclBtn = (Button) findViewById(R.id.cancel_button);
         final EditText name = (EditText) findViewById(R.id.editTextName);
@@ -124,6 +128,7 @@ public class Add extends AppCompatActivity {
                         Log.d("Database:", "Inserting values..");  //For personal testing
                         Log.d("DatabaseTest", "adding + " + catResult);
                         dh.addList(new ListInfo(name.getText().toString(), contents.getText().toString(), catResult, active, epochDate));
+                        dh.close();
                         returnName = ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
                         Intent returnIntent = new Intent(); //Create a new return intent and pass the name and position
                         returnIntent.putExtra("updatedName", returnName);
@@ -187,10 +192,8 @@ public class Add extends AppCompatActivity {
         //Convert from human readable date to epoch
         try {
             epochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateTxt).getTime() / 1000;
-            System.out.println("showdateHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH == " + dateTxt);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
     }
 }

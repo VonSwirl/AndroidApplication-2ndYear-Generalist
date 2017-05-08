@@ -1,8 +1,6 @@
 package uk.ac.tees.com2060.kitkat.generalist;
 
 
-import android.os.Parcelable;
-
 /**
  * Created by q5052694 on 07/03/2017.
  */
@@ -52,8 +50,8 @@ public class ListInfo {
         return category;
     }
 
-    public String toString(){
-        return  name;
+    public String toString() {
+        return name;
     }
 
     public void setCategory(String category) {
