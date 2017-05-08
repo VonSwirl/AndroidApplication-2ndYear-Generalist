@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Links the class to the intended place to go
-                        Intent intent = new Intent(context, PlacePickerActivity.class);
+                        Intent intent = new Intent(context, MapsActivity.class);
 
 
                         //Starts that activity
