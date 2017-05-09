@@ -19,14 +19,23 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+
+class ChangeComparator implements Comparator<ListInfo>
+{
+    public int compare(ListInfo o1, ListInfo o2) {
+        if(o1.getEpochDate() >= o2.getEpochDate()){
+            return 1;
+        }
+        return -1;
+    }
+}
 
 public class ViewListActivity extends AppCompatActivity {
 
@@ -77,11 +86,12 @@ public class ViewListActivity extends AppCompatActivity {
 
         ListView lv = (ListView) findViewById(R.id.list); //Creating the list view
 
-
-
         //Database handling, getting all the items adding them to an array list
         dh = new DatabaseHandler(this);
         final List<ListInfo> value = dh.getAll();
+
+       // SORT BY DATE UNCOMMENT
+       // Collections.sort(value, new ChangeComparator());
 
         final ArrayList<ListInfo> entry = new ArrayList<>();
 
@@ -93,7 +103,6 @@ public class ViewListActivity extends AppCompatActivity {
             if (active == 1) {
                 entries.add(li);
             }
-
         }
 
         //Setting the adapter for the view list (so each row)
@@ -152,7 +161,6 @@ public class ViewListActivity extends AppCompatActivity {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
-                //viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.list_item_thumbnail);
                 viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.list_item_tickbox);
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
                 viewHolder.editBtn = (ImageButton) convertView.findViewById(R.id.list_item_editBtn);
@@ -242,5 +250,3 @@ public class ViewListActivity extends AppCompatActivity {
         CheckBox checkBox;
     }
 }
-
-

@@ -1,31 +1,42 @@
 package uk.ac.tees.com2060.kitkat.generalist;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 //import com.google.android.gms.appindexing.Action;
 //import com.google.android.gms.appindexing.AppIndex;
 //import com.google.android.gms.appindexing.Thing;
 //import com.google.android.gms.common.api.GoogleApiClient;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class MainActivity extends AppCompatActivity {
 
     CompactCalendarView myMainCalender;
     private AlertDialog.Builder aDialogBox;
     private Context calenderContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final TextView name = (TextView) findViewById(R.id.byMonthHeader);
+        name.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         //Adds a Toolbar to this page and gives it a title
         Toolbar homeBar = (Toolbar) findViewById(R.id.homeBar);
         setSupportActionBar(homeBar);
@@ -47,13 +60,24 @@ public class MainActivity extends AppCompatActivity {
         myMainCalender.setUseThreeLetterAbbreviation(true);
 
         //Adding Events to the calender Example
-        Event ev1 = new Event(Color.RED, 1495292844000L, "Mums Birthday");
-        myMainCalender.addEvent(ev1);
-        ev1 = new Event(Color.GREEN, 1495465644000L, "Get Pills");
-        myMainCalender.addEvent(ev1);
-        ev1 = new Event(Color.YELLOW, 1496070444000L, "Book Flights");
-        myMainCalender.addEvent(ev1);
+        //Event ev1 = new Event(Color.RED, 1495292844000L, "Mums Birthday");
+        //myMainCalender.addEvent(ev1);
+        //ev1 = new Event(Color.GREEN, 1495465644000L, "Get Pills");
+        //myMainCalender.addEvent(ev1);
+        //ev1 = new Event(Color.YELLOW, 1496070444000L, "Book Flights");
+       // myMainCalender.addEvent(ev1);
 
+        Calendar calendar = Calendar.getInstance();
+        final DateFormat format = new SimpleDateFormat("MMMM - yyyy");
+        Date useThisDate = calendar.getTime();
+        format.format(useThisDate);
+        // format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        //String formatted = format.format(useThisDate);
+
+
+
+        String formatted = format.format(useThisDate);
+        name.setText(formatted);
 
 //READ BELOW DONT DELETE THIS BLOCK----JAY
 //
@@ -81,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         myMainCalender.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(final Date dateClicked) {
+                //useThisDate = dateClicked;
                 calenderContext = getApplicationContext();
                 aDialogBox = new AlertDialog.Builder(context);
                 aDialogBox.setTitle("Created New List");
@@ -111,8 +136,16 @@ public class MainActivity extends AppCompatActivity {
                 aDialogBox.show();
             }
 
+
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
+
+               // DateFormat format = new SimpleDateFormat("MMMM- yyyy");
+                format.format(firstDayOfNewMonth);
+                String formatted = format.format(firstDayOfNewMonth);
+                System.out.println(formatted);
+                name.setText(formatted);
+
 
             }
         });
