@@ -98,7 +98,7 @@
         android:layout_marginLeft="@dimen/pad_size_16dp"
         android:layout_marginRight="@dimen/pad_size_16dp"
         android:text="Place Picker"
-        android:layout_alignBottom="@+id/relativeLayout2"
+        android:layout_above="@+id/view_Button"
         android:layout_centerHorizontal="true" />
 
 
@@ -107,9 +107,9 @@
         android:id="@+id/main_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/relativeLayout2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="33dp"
-        android:text="Slide to change month" />
+        android:text="Slide to change month"
+        android:layout_marginBottom="11dp"
+        android:layout_above="@+id/places_Button"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
