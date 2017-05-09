@@ -12,7 +12,7 @@
         android:id="@+id/addBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
-        android:background="?attr/colorPrimary"
+        android:background="#90A4AE"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         android:titleTextAppearance="@color/colorWhite"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -148,7 +148,7 @@
         android:layout_marginLeft="@dimen/pad_size_16dp"
         android:layout_marginRight="@dimen/pad_size_16dp"
         android:layout_marginTop="11dp"
-        android:background="@color/colorPrimary"
+        android:background="#90A4AE"
         android:contentDescription="@string/home"
         android:src="@drawable/ic_home_dark" />
 

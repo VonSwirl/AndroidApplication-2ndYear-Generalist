@@ -11,20 +11,23 @@
         android:id="@+id/homeBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
-        android:background="?attr/colorPrimary"
+        android:background="#90A4AE"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/byMonthHeader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/relativeLayout2"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/homeBar"
-        android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/pad_size_16dp"
         android:layout_marginRight="@dimen/pad_size_16dp"
-        android:layout_marginTop="11dp"
-        android:text="@string/work_rest_and_play" />
+        android:fontFamily="sans-serif"
+        android:text=""
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -41,7 +44,6 @@
             android:layout_marginLeft="@dimen/pad_size_16dp"
             android:layout_marginRight="@dimen/pad_size_16dp"
             android:layout_marginStart="@dimen/pad_size_16dp"
-            android:layout_marginTop="@dimen/pad_size_16dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
 
