@@ -183,31 +183,14 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        Button mapBtn = (Button) findViewById(R.id.view_Map_Button);
+        Button mapsBtn = (Button) findViewById(R.id.view_Map_Button);
 
-        //Add event listener to button
-        mapBtn.setOnClickListener(
+        mapsBtn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //Links the class to the intended place to go
                         Intent intent = new Intent(context, MapsActivity.class);
-
-
-                        //Starts that activity
-                        startActivity(intent);
-                    }
-                }
-        );
-
-        Button placesBtn = (Button) findViewById(R.id.places_Button);
-
-        placesBtn.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //Links the class to the intended place to go
-                        Intent intent = new Intent(context, PlacePickerActivity.class);
 
 
                         //Starts that activity
