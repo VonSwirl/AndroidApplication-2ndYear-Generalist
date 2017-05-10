@@ -39,6 +39,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="21dp"
             android:layout_marginStart="22dp"
+            android:background="@drawable/button_bg_rounded_corners"
             android:text="@string/save" />
 
         <TextView
@@ -111,6 +112,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="26dp"
+            android:background="@drawable/button_bg_rounded_corners"
             android:text="@string/cancel" />
 
         <TextView
