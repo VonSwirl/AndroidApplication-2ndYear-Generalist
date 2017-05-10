@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
 
-import java.util.List;
-
 public class Popup extends AppCompatActivity {
 
     @Override
@@ -34,7 +32,5 @@ public class Popup extends AppCompatActivity {
         final String content = intent.getStringExtra("position"); //Use it to pass the position from "ViewListActivity"
 
        viewContents.setText(content);
-
-
     }
 }

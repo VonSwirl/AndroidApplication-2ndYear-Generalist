@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uk.ac.tees.com2060.kitkat.generalist">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,11 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAqPlL2rSMungAJSbzADnTzWU-DTgzCFuA" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAqPlL2rSMungAJSbzADnTzWU-DTgzCFuA" />
 
         <activity android:name=".SplashScreen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -51,11 +54,14 @@
         <activity android:name=".Add" />
         <activity android:name=".ViewListActivity" />
         <activity android:name=".Editing" />
-        <activity android:name=".Popup"
+        <activity
+            android:name=".Popup"
+            android:theme="@style/AppTheme.PopupCustom" />
+        <activity
+            android:name=".CalenderEventPopup"
             android:theme="@style/AppTheme.PopupCustom">
 
         </activity>
-
 
 
     </application>

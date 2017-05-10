@@ -74,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
         // format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
         //String formatted = format.format(useThisDate);
 
-
-
         String formatted = format.format(useThisDate);
         name.setText(formatted);
 
@@ -106,34 +104,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDayClick(final Date dateClicked) {
                 //useThisDate = dateClicked;
-                calenderContext = getApplicationContext();
-                aDialogBox = new AlertDialog.Builder(context);
-                aDialogBox.setTitle("Created New List");
-                aDialogBox.setMessage("Would you like to create a new list for this date?");
 
-                // Setting Listener for "Yes" Button.
-                aDialogBox.setPositiveButton("Yes Please", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(contxt, CalenderEventPopup.class);
 
-                        //Links the class to the intended place to go
-                        Intent intent = new Intent(calenderContext, Add.class);
-                        intent.putExtra("mainActDateBoolean", true);
-                        intent.putExtra("mainActDate", dateClicked.getTime());
+                //Starts that activity
+                startActivity(intent);
 
-                        //Starts that activity.
-                        startActivity(intent);
-                    }
-                });
-
-                // Setting Listener for "NO" Button.
-                aDialogBox.setNegativeButton("No Thanks,", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-                // Displays the dialog to the user.
-                aDialogBox.show();
+////////////////////////////////////////////////////////////////////////////////////////////
+//                calenderContext = getApplicationContext();
+//                aDialogBox = new AlertDialog.Builder(context);
+//                aDialogBox.setTitle("Created New List");
+//                aDialogBox.setMessage("Would you like to create a new list for this date?");
+//
+//                // Setting Listener for "Yes" Button.
+//                aDialogBox.setPositiveButton("Yes Please", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                        //Links the class to the intended place to go
+//                        Intent intent = new Intent(calenderContext, Add.class);
+//                        intent.putExtra("mainActDateBoolean", true);
+//                        intent.putExtra("mainActDate", dateClicked.getTime());
+//
+//                        //Starts that activity.
+//                        startActivity(intent);
+//                    }
+//                });
+//
+//                // Setting Listener for "NO" Button.
+//                aDialogBox.setNegativeButton("No Thanks,", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.cancel();
+//                    }
+//                });
+//
+//                // Displays the dialog to the user.
+//                aDialogBox.show();
+///////////////////////////////////////////////////////////////////////////////////////////////////
             }
 
 
