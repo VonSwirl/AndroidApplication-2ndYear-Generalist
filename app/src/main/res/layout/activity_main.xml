@@ -97,17 +97,6 @@
         android:layout_alignBottom="@+id/addButton"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/places_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/view_Button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/pad_size_16dp"
-        android:layout_marginRight="@dimen/pad_size_16dp"
-        android:background="@drawable/button_bg_rounded_corners"
-        android:text="Place Picker" />
-
 
 
     <TextView
@@ -116,7 +105,7 @@
         android:layout_height="wrap_content"
         android:text="Slide to change month"
         android:layout_marginBottom="11dp"
-        android:layout_above="@+id/places_Button"
+        android:layout_above="@+id/view_Map_Button"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
