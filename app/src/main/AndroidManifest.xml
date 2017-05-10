@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uk.ac.tees.com2060.kitkat.generalist">
+    android:name="com.example.barcodelibrary.permission.MAPS_RECEIVE"
+    android:protectionLevel="signature"/>
+    <uses-permission android:name="com.example.barcodelibrary.permission.MAPS_RECEIVE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAqPlL2rSMungAJSbzADnTzWU-DTgzCFuA" />
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyA1OyNKXRtHZuluDxR2y_mIg2RjWHLf3DQ" />
 
         <activity android:name=".SplashScreen">
             <intent-filter>
@@ -31,15 +36,6 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.APP_MAPS" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".PlacePickerActivity"
             android:label="@string/title_activity_place_picker">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
