@@ -34,6 +34,7 @@ public class Add extends AppCompatActivity {
     private Boolean fromMainCalender = false;
     private Date dateObj;
     public int checked = 0;
+    public long reminderTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +129,7 @@ public class Add extends AppCompatActivity {
                     public void onClick(View v) {
                         Log.d("Database:", "Inserting values..");  //For personal testing
                         Log.d("DatabaseTest", "adding + " + catResult);
-                        dh.addList(new ListInfo(name.getText().toString(), contents.getText().toString(), catResult, active, epochDate, checked));
+                        dh.addList(new ListInfo(name.getText().toString(), contents.getText().toString(), catResult, active, epochDate, checked, reminderTime));
                         dh.close();
                         returnName = ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
                         Intent returnIntent = new Intent(); //Create a new return intent and pass the name and position
@@ -136,6 +137,8 @@ public class Add extends AppCompatActivity {
                         returnIntent.putExtra("position", position);
                         setResult(RESULT_OK, returnIntent); //set the result and pass the intent with the values
                         finish();
+
+                        System.out.println(reminderTime);
                     }
                 }
         );
