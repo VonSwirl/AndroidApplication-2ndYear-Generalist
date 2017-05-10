@@ -27,6 +27,7 @@ public class Editing extends AppCompatActivity {
     public static String returnName = "RETURNAME";
     public static String returnContents = "RETURNCONTENTS";
     public long dbEpochDate;
+    public long reminderTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +125,7 @@ public class Editing extends AppCompatActivity {
 
                     @Override
                     public void onClick(View v) {
-                        dh.updateByID(id, name.getText().toString(), contents.getText().toString(), catResult, dbEpochDate);
+                        dh.updateByID(id, name.getText().toString(), contents.getText().toString(), catResult, dbEpochDate, reminderTime);
                         Toast.makeText(getApplicationContext(), "Saving", Toast.LENGTH_LONG).show();
                         returnName = ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
                         returnContents = ((EditText) findViewById(R.id.editTextContents)).getText().toString();

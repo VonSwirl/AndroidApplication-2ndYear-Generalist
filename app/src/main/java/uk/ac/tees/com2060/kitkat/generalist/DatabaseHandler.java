@@ -29,6 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COL_CAT = "category";
     private static final String COL_DATE = "date";
     private static final String COL_CHECKED = "checked";
+    private static final String COL_REMINDERTIME = "remindertime";
 
     //default constructor
     public DatabaseHandler(Context context) {
@@ -46,7 +47,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_CAT + " TEXT,"
                 + COL_ACTIVE + " INTEGER,"
                 + COL_DATE + " INTEGER,"
-                + COL_CHECKED + " INTEGER"
+                + COL_CHECKED + " INTEGER,"
+                + COL_REMINDERTIME + " INTEGER"
                 + ")";
         // Execute/run create SQL statement
         db.execSQL(CREATE_CONTACTS_TABLE);
@@ -70,6 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_ACTIVE, list.getActive());
         values.put(COL_DATE, list.getEpochDate());
         values.put(COL_CHECKED, list.getChecked());
+        values.put(COL_REMINDERTIME, list.getReminderTime());
         //Id not needed because auto inc
 
         //Add record to db and get id of new record( must be long )
@@ -98,6 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int activeIdx = cursor.getColumnIndex(COL_ACTIVE);
             int dateIdx = cursor.getColumnIndex(COL_DATE);
             int checkedIdx = cursor.getColumnIndex(COL_CHECKED);
+            int reminderIdx = cursor.getColumnIndex(COL_REMINDERTIME);
 
             do {
                 // Create list object for current database record
@@ -108,7 +112,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(categoryIdx),
                         cursor.getInt(activeIdx),
                         cursor.getLong(dateIdx),
-                        cursor.getInt(checkedIdx)
+                        cursor.getInt(checkedIdx),
+                        cursor.getLong(reminderIdx)
                 );
 
                 item.add(usrList);
@@ -139,6 +144,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int activeIdx = cursor.getColumnIndex(COL_ACTIVE);
             int dateIdx = cursor.getColumnIndex(COL_DATE);
             int checkedIdx = cursor.getColumnIndex(COL_CHECKED);
+            int reminderIdx = cursor.getColumnIndex(COL_REMINDERTIME);
 
             do {
                 // Create lecturer object for current database record
@@ -149,7 +155,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(categoryIdx),
                         cursor.getInt(activeIdx),
                         cursor.getLong(dateIdx),
-                        cursor.getInt(checkedIdx)
+                        cursor.getInt(checkedIdx),
+                        cursor.getLong(reminderIdx)
                 );
 
                 list.add(usrList);
@@ -159,7 +166,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
-    public void updateByID(int id, String name, String content, String cat, long date) {
+    public void updateByID(int id, String name, String content, String cat, long date, long reminderTime) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -168,7 +175,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_CONTENTS, content);
         values.put(COL_CAT, cat);
         values.put(COL_DATE, date);
-        //values.put(COL_CHECKED, checked);
+        values.put(COL_REMINDERTIME, reminderTime);
         db.update(TABLE_NAME, values, COL_ID + "=" + id, null);
     }
 
