@@ -21,7 +21,7 @@
 
         <activity android:name=".SplashScreen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -47,11 +47,14 @@
         <activity android:name=".Add" />
         <activity android:name=".ViewListActivity" />
         <activity android:name=".Editing" />
-        <activity android:name=".Popup"
+        <activity
+            android:name=".Popup"
+            android:theme="@style/AppTheme.PopupCustom" />
+        <activity
+            android:name=".CalenderEventPopup"
             android:theme="@style/AppTheme.PopupCustom">
 
         </activity>
-
 
 
     </application>
