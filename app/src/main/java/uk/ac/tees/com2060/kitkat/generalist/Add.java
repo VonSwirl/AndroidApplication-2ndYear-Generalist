@@ -2,11 +2,13 @@ package uk.ac.tees.com2060.kitkat.generalist;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,8 +19,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.sql.SQLOutput;
+import java.sql.Time;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,14 +34,13 @@ public class Add extends AppCompatActivity {
 
     final int active = 1;
     String catResult = "";
-    public TextView dateView;
-    int year, month, day;
+    public TextView dateView, timeView;
+    int year, month, day, hours, minutes;
     public static String returnName = "RETURNAME";
-    public long epochDate;
+    public long epochDate, reminderTime;
     private Boolean fromMainCalender = false;
     private Date dateObj;
     public int checked = 0;
-    public long reminderTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +53,10 @@ public class Add extends AppCompatActivity {
             e.getStackTrace();
         }
 
+        Calendar calendar = Calendar.getInstance();
         if (fromMainCalender) {
             //Date is equal to the main activity calender date if intent is from the mainActivity.
-            Calendar calendar = Calendar.getInstance();
+
             calendar.setTime(dateObj);
             year = calendar.get(Calendar.YEAR);
             month = calendar.get(Calendar.MONTH);
@@ -57,24 +64,33 @@ public class Add extends AppCompatActivity {
 
         } else {
             //Date is equal to the current date if intent is from the add list
-            Calendar calendar = Calendar.getInstance();
+            //Calendar calendar = Calendar.getInstance();
             year = calendar.get(Calendar.YEAR);
             month = calendar.get(Calendar.MONTH);
             day = calendar.get(Calendar.DAY_OF_MONTH);
         }
 
+        //Create the two views
         dateView = (TextView) findViewById(R.id.viewDateadd);
+        timeView = (TextView) findViewById(R.id.viewTimeAdd);
 
         dateView.setText(String.format("%s/%s/%s", day, (month + 1) % 12, year));
+        timeView.setText(String.format("%s/%s,", hours, minutes));
         String dateTxt = day + "/" + month + "/" + year;
+        String timeTxt = hours + ":" + minutes;
         //Convert from human readable date to epoch
         try {
             epochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateTxt).getTime() / 1000;
+            reminderTime = new java.text.SimpleDateFormat("HH:mm").parse(timeTxt).getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
+        hours = calendar.get(Calendar.HOUR_OF_DAY);
+        minutes = calendar.get(Calendar.MINUTE);
+
         showDate(year, month, day);
+        showTime(hours, minutes);
 
         //Adds a Toolbar to this page and gives it a title
         Toolbar addBar = (Toolbar) findViewById(R.id.addBar);
@@ -143,6 +159,8 @@ public class Add extends AppCompatActivity {
                 }
         );
 
+
+
         cnclBtn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -156,17 +174,27 @@ public class Add extends AppCompatActivity {
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
         showDialog(999);
-        Toast.makeText(getApplicationContext(), "ca",
+        Toast.makeText(getApplicationContext(), "Set date",
+                Toast.LENGTH_SHORT)
+                .show();
+    }
+    @SuppressWarnings("deprecation")
+    public void setTime(View view){
+        showDialog(998);
+        Toast.makeText(getApplicationContext(), "Set time",
                 Toast.LENGTH_SHORT)
                 .show();
     }
 
+    //Checks against which id to display date or time listener
     @Override
     protected Dialog onCreateDialog(int id) {
         // TODO Auto-generated method stub
         if (id == 999) {
-            return new DatePickerDialog(this,
-                    myDateListener, year, month, day);
+            return new DatePickerDialog(this, myDateListener, year, month, day);
+        }
+        if(id == 998) {
+            return new TimePickerDialog(this, myTimeListener, hours, minutes, false);
         }
         return null;
     }
@@ -184,6 +212,14 @@ public class Add extends AppCompatActivity {
                 }
             };
 
+            private TimePickerDialog.OnTimeSetListener myTimeListener = new TimePickerDialog.OnTimeSetListener(){
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    showTime(hourOfDay, minute);
+                }
+            };
+
+    //Shows the date and creates and epoch from the time
     private void showDate(int y, int m, int d) {
         dateView.setText(new StringBuilder().append(d).append("/")
                 .append(m).append("/").append(y));
@@ -200,4 +236,22 @@ public class Add extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    //Shows the time
+    private void showTime(int h, int m) {
+        //timeView.setText(new StringBuilder().append(h).append(":").append(m));
+        int hours = h;
+        int minutes = m;
+
+        timeView.setText(new StringBuilder().append(hours).append(":").append(minutes));
+        String timeTxt = hours + ":" + minutes;
+        try {
+            reminderTime = new java.text.SimpleDateFormat("HH:mm").parse(timeTxt).getTime(); //DO I NEED TO DIVIDE BY 10 or 100 or 1000?
+            System.out.println("THIS IS REMINDER TIME" + reminderTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+

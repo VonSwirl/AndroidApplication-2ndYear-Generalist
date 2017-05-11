@@ -122,9 +122,9 @@
             android:onClick="setDate"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/editTextName"
-            android:layout_alignEnd="@+id/editTextName" />
+            android:layout_alignBaseline="@+id/dateTitle"
+            android:layout_alignBottom="@+id/dateTitle"
+            android:layout_alignStart="@+id/editTextName" />
 
         <TextView
             android:id="@+id/dateTitle"
@@ -137,6 +137,26 @@
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/editTextName"
             android:layout_alignEnd="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/viewTimeAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="setTime"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="15sp"
+            android:layout_toEndOf="@+id/timeTitle"
+            android:layout_marginStart="11dp" />
+
+        <TextView
+            android:id="@+id/timeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TimeDue:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="15sp"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
@@ -162,5 +182,7 @@
         android:layout_marginStart="80dp"
         android:layout_below="@+id/addBar"
         android:layout_alignStart="@+id/relativeLayout" />
+
+
 
 </RelativeLayout>

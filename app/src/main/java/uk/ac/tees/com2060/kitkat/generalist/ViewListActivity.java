@@ -5,6 +5,7 @@ package uk.ac.tees.com2060.kitkat.generalist;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -167,7 +168,7 @@ public class ViewListActivity extends AppCompatActivity {
                 viewHolder.delBtn = (ImageButton) convertView.findViewById(R.id.list_item_delBtn);
                 convertView.setTag(viewHolder);
             }
-            mainViewholder = (ViewHolder) convertView.getTag();
+           mainViewholder = (ViewHolder) convertView.getTag();
 
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -182,7 +183,7 @@ public class ViewListActivity extends AppCompatActivity {
             mainViewholder.delBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "DELETE clicked @ " + position, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
 
                     ListInfo toRemove = mObjects.get(position);
 
@@ -197,6 +198,7 @@ public class ViewListActivity extends AppCompatActivity {
             });
 
             //Check box listener
+            ViewHolder finalMainViewholder = mainViewholder;
             mainViewholder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton Checkbutton, boolean checked) {
@@ -204,11 +206,14 @@ public class ViewListActivity extends AppCompatActivity {
                     {
                         System.out.println("CheckBox ticked at " + position);
                         dh.updateChecked(mObjects.get(position).getID(), 1); //Updated the checked box in the data base when the tickbox at position is pressed
+                        //Used to strike though the text when the button is pressed1
+                        finalMainViewholder.title.setPaintFlags(finalMainViewholder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     }
                     else if (!Checkbutton.isChecked())
                     {
                         System.out.println("CheckBox unticked at " + position);
                         dh.updateChecked(mObjects.get(position).getID(), 0); //Updated the checked box in the data base when the tickbox at position is pressed
+                        finalMainViewholder.title.setPaintFlags(finalMainViewholder.title.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                     }
                 }
             });
@@ -218,6 +223,7 @@ public class ViewListActivity extends AppCompatActivity {
             }
             else if(mObjects.get(position).getChecked() == 0){
                 mainViewholder.checkBox.setChecked(false);
+
             }
 
             mainViewholder.title.setText(getItem(position).toString());
