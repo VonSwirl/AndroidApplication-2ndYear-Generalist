@@ -31,6 +31,7 @@
     <string name="date_view_set">The Date is: </string>
     <string name="date_selected">Date Selected: </string>
     <string name="date_due">Date Due: </string>
+    <string name="time_due">Time Due:</string>
 
     <string-array name="categories">
         <item>Shopping</item>
