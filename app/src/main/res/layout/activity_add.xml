@@ -153,10 +153,10 @@
             android:id="@+id/timeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TimeDue:"
+            android:layout_centerHorizontal="true"
+            android:text="@string/time_due"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="15sp"
-            android:layout_centerHorizontal="true" />
+            android:textSize="15sp" />
 
     </RelativeLayout>
 
