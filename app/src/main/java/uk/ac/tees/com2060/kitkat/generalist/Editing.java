@@ -96,7 +96,7 @@ public class Editing extends AppCompatActivity {
         contents.setText(dbCont);
 
         //Converts the database epoch date to a user readable format.
-        String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate * 1000));
+        String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate));
         String[] dismantle = dateInString.split("/");
         String dayStr = dismantle[0];
         String monthStr = dismantle[1];
@@ -124,6 +124,7 @@ public class Editing extends AppCompatActivity {
 
                     @Override
                     public void onClick(View v) {
+                        //Long epochSave = dbEpochDate * 1000;
                         dh.updateByID(id, name.getText().toString(), contents.getText().toString(), catResult, dbEpochDate);
                         Toast.makeText(getApplicationContext(), "Saving", Toast.LENGTH_LONG).show();
                         returnName = ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
@@ -163,7 +164,7 @@ public class Editing extends AppCompatActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
 
-        String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate * 1000));
+        String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate));
         String[] dismantle = dateInString.split("/");
         String dayStr = dismantle[0];
         String monthStr = dismantle[1];
@@ -194,7 +195,7 @@ public class Editing extends AppCompatActivity {
 
         //Convert from human readable date to epoch
         try {
-            dbEpochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateShow).getTime() / 1000;
+            dbEpochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateShow).getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }

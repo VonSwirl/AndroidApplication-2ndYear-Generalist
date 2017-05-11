@@ -1,6 +1,5 @@
 package uk.ac.tees.com2060.kitkat.generalist;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,21 +8,23 @@ import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
-import com.github.sundeepk.compactcalendarview.domain.Event;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
+import java.util.List;
+import java.util.Objects;
 
 //import com.google.android.gms.appindexing.Action;
 //import com.google.android.gms.appindexing.AppIndex;
@@ -36,16 +37,27 @@ public class MainActivity extends AppCompatActivity {
     CompactCalendarView myMainCalender;
     private AlertDialog.Builder aDialogBox;
     private Context calenderContext;
-
+    DatabaseHandler dh;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        dh = new DatabaseHandler(this);
+        final Context context = this;
+        final Context contxt = this;
         final TextView name = (TextView) findViewById(R.id.byMonthHeader);
+        final DateFormat format = new SimpleDateFormat("MMMM - yyyy");
+
+        Calendar calendar = Calendar.getInstance();
+        Date useThisDate = calendar.getTime();
+        format.format(useThisDate);
+        String formatted = format.format(useThisDate);
+        name.setText(formatted);
         name.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
         //Adds a Toolbar to this page and gives it a title
         Toolbar homeBar = (Toolbar) findViewById(R.id.homeBar);
         setSupportActionBar(homeBar);
@@ -54,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         //Get a reference to the Button object in the layout (XML) file (the button that is linked on the screen)
-        final Context context = this;
-        final Context contxt = this;
+
         myMainCalender = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         myMainCalender.setUseThreeLetterAbbreviation(true);
 
@@ -65,17 +76,7 @@ public class MainActivity extends AppCompatActivity {
         //ev1 = new Event(Color.GREEN, 1495465644000L, "Get Pills");
         //myMainCalender.addEvent(ev1);
         //ev1 = new Event(Color.YELLOW, 1496070444000L, "Book Flights");
-       // myMainCalender.addEvent(ev1);
-
-        Calendar calendar = Calendar.getInstance();
-        final DateFormat format = new SimpleDateFormat("MMMM - yyyy");
-        Date useThisDate = calendar.getTime();
-        format.format(useThisDate);
-        // format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
-        //String formatted = format.format(useThisDate);
-
-        String formatted = format.format(useThisDate);
-        name.setText(formatted);
+        // myMainCalender.addEvent(ev1);
 
 //READ BELOW DONT DELETE THIS BLOCK----JAY
 //
@@ -103,50 +104,84 @@ public class MainActivity extends AppCompatActivity {
         myMainCalender.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(final Date dateClicked) {
-                //useThisDate = dateClicked;
+                ArrayList<ListInfo> entries = new ArrayList<>();
+                final List<ListInfo> value = dh.getAll();
+                boolean itemsExistsForDate = false;
+                Long milliseconds = (dateClicked).getTime();
+                System.out.println(" DATECLICKED ======== " + milliseconds);
 
-                Intent intent = new Intent(contxt, CalenderEventPopup.class);
+                // SORT BY DATE UNCOMMENT
+                //Collections.sort(value, new ChangeComparator());
 
-                //Starts that activity
-                startActivity(intent);
+                //Puts data into view list
+                for (ListInfo li : value) {
+                    int active = li.getActive();
+                    System.out.println("DB DATE ============ " + li.getEpochDate());
 
-////////////////////////////////////////////////////////////////////////////////////////////
-//                calenderContext = getApplicationContext();
-//                aDialogBox = new AlertDialog.Builder(context);
-//                aDialogBox.setTitle("Created New List");
-//                aDialogBox.setMessage("Would you like to create a new list for this date?");
-//
-//                // Setting Listener for "Yes" Button.
-//                aDialogBox.setPositiveButton("Yes Please", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                        //Links the class to the intended place to go
-//                        Intent intent = new Intent(calenderContext, Add.class);
-//                        intent.putExtra("mainActDateBoolean", true);
-//                        intent.putExtra("mainActDate", dateClicked.getTime());
-//
-//                        //Starts that activity.
-//                        startActivity(intent);
-//                    }
-//                });
-//
-//                // Setting Listener for "NO" Button.
-//                aDialogBox.setNegativeButton("No Thanks,", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.cancel();
-//                    }
-//                });
-//
-//                // Displays the dialog to the user.
-//                aDialogBox.show();
-///////////////////////////////////////////////////////////////////////////////////////////////////
+                    Calendar tempDate = Calendar.getInstance();
+                    Long tempTemp = li.getEpochDate();
+                    tempDate.setTimeInMillis(tempTemp);
+                    tempDate.add(Calendar.MONTH, 1);
+                    Date toLong = tempDate.getTime();
+                    Long compareDates = (toLong).getTime();
+                    System.out.println("Compare Date  ===== " + compareDates);
+
+                    if (active == 1 && Objects.equals(compareDates, milliseconds)) {
+                        entries.add(li);
+                        itemsExistsForDate = true;
+                    }
+                }
+
+                if (itemsExistsForDate) {
+                    Intent i = new Intent(contxt, CalenderEventPopup.class);
+
+                    //send date though
+
+                    Bundle args = new Bundle();
+                    args.putSerializable("ARRAYLIST", (Serializable) entries);
+                    i.putExtra("BUNDLE", args);
+
+
+                    //Starts that activity
+                    startActivity(i);
+
+                } else {
+                    calenderContext = getApplicationContext();
+                    aDialogBox = new AlertDialog.Builder(context);
+                    aDialogBox.setTitle("Created New List");
+                    aDialogBox.setMessage("Would you like to create a new list for this date?");
+
+                    // Setting Listener for "Yes" Button.
+                    aDialogBox.setPositiveButton("Yes Please", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            //Links the class to the intended place to go
+                            Intent intent = new Intent(calenderContext, Add.class);
+                            intent.putExtra("mainActDateBoolean", true);
+                            intent.putExtra("mainActDate", dateClicked.getTime());
+
+                            //Starts that activity.
+                            startActivity(intent);
+                        }
+                    });
+
+                    // Setting Listener for "NO" Button.
+                    aDialogBox.setNegativeButton("No Thanks,", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    // Displays the dialog to the user.
+                    aDialogBox.show();
+                }
             }
 
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
 
-               // DateFormat format = new SimpleDateFormat("MMMM- yyyy");
+                // DateFormat format = new SimpleDateFormat("MMMM- yyyy");
                 format.format(firstDayOfNewMonth);
                 String formatted = format.format(firstDayOfNewMonth);
                 System.out.println(formatted);

@@ -3,6 +3,8 @@ package uk.ac.tees.com2060.kitkat.generalist;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -30,10 +32,11 @@ import java.util.List;
 public class CalenderEventPopup extends AppCompatActivity {
 
     final Context context = this;
-    PopListAdapter adapter;
+    private PopListAdapter adapter;
     DatabaseHandler dh;
-    ArrayList<ListInfo> entries = new ArrayList<>();
+    public ArrayList<ListInfo> entries = new ArrayList<>();
 
+    //Default Constructor
     public CalenderEventPopup() {
     }
 
@@ -41,46 +44,37 @@ public class CalenderEventPopup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Database handling, getting all the items adding them to an array list
+        dh = new DatabaseHandler(this);
+        final List<ListInfo> value = dh.getAll();
 
-//////////////////////////////////////////////////////
         setContentView(R.layout.activity_main_popup);
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
+        Intent i = getIntent();
+        Bundle args = i.getBundleExtra("BUNDLE");
+        entries = (ArrayList<ListInfo>) args.getSerializable("ARRAYLIST");
+        //entries = i.getStringArrayListExtra("name_of_extra");
+        System.out.println("THE ENTRIES " + entries);
 
-        getWindow().setLayout((int) (width * .85), (int) (height * .75)); //Sets the size of the popup window
-
-/////////////////////////////////////////////////////////
-        ListView lv = (ListView) findViewById(R.id.listthis); //Creating the list view
+        //Creating the list view
+        ListView lv = (ListView) findViewById(R.id.listthis);
         adapter = new PopListAdapter(this, R.layout.view_row, entries);
         lv.setAdapter(adapter);
 
-        //Database handling, getting all the items adding them to an array list
-        dh = new DatabaseHandler(this);
 
-//////////////////////////////////////////////////////////////////
-        final List<ListInfo> value = dh.getAll();
-///////////////////////////////////////////////////////
-
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        //Sets the size of the popup window
+        getWindow().setLayout((int) (width * .85), (int) (height * .75));
 
         // SORT BY DATE UNCOMMENT
         //Collections.sort(value, new ChangeComparator());
 
-        final ArrayList<ListInfo> entry = new ArrayList<>();
 
-        //Puts data into view list
-        for (ListInfo li : value) {
-            int active = li.getActive();
-            int checked = li.getChecked();
-
-            if (active == 1) {
-                entries.add(li);
-            }
-        }
-        adapter = new PopListAdapter(this, R.layout.view_row, entries);
     }
+
 
     private class PopListAdapter extends ArrayAdapter<ListInfo> {
 
@@ -188,5 +182,4 @@ public class CalenderEventPopup extends AppCompatActivity {
             adapter.notifyDataSetChanged(); //update the viewlist
         }
     }
-
 }//ClassEnd

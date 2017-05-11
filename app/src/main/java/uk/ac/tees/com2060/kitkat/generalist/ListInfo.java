@@ -1,11 +1,13 @@
 package uk.ac.tees.com2060.kitkat.generalist;
 
 
+import java.io.Serializable;
+
 /**
  * Created by q5052694 on 07/03/2017.
  */
 
-public class ListInfo {
+public class ListInfo implements Serializable {
 
     private int ID;
     private String name;
