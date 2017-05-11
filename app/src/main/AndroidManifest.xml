@@ -1,62 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="uk.ac.tees.com2060.kitkat.generalist">
-    android:name="com.example.barcodelibrary.permission.MAPS_RECEIVE"
-    android:protectionLevel="signature"/>
-    <uses-permission android:name="com.example.barcodelibrary.permission.MAPS_RECEIVE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
+package="uk.ac.tees.com2060.kitkat.generalist">
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyA1OyNKXRtHZuluDxR2y_mIg2RjWHLf3DQ" />
+<application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name"
+    android:supportsRtl="true" android:theme="@style/AppTheme">
 
-        <activity android:name=".SplashScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+    <meta-data
 
-        </activity>
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.default" />
-            </intent-filter>
-        </activity>
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyCImdTsIihhh8KZhg_wfCAzrsb6hgNYoXU" />
 
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_place_picker">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.APP_MAPS" />
-            </intent-filter>
-        </activity>
+    <activity android:name=".SplashScreen">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+    </activity>
+
+    <activity android:name=".MainActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.default" />
+        </intent-filter>
+    </activity>
+
+    <activity android:name=".MapsActivity" android:label="@string/title_activity_place_picker">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
 
 
-        <activity android:name=".Add" />
-        <activity android:name=".ViewListActivity" />
-        <activity android:name=".Editing" />
-        <activity
-            android:name=".Popup"
-            android:theme="@style/AppTheme.PopupCustom" />
-        <activity
-            android:name=".CalenderEventPopup"
-            android:theme="@style/AppTheme.PopupCustom">
+    <activity android:name=".Add" />
+    <activity android:name=".ViewListActivity" />
+    <activity android:name=".Editing" />
+    <activity android:name=".Popup" android:theme="@style/AppTheme.PopupCustom" />
+    <activity android:name=".CalenderEventPopup" android:theme="@style/AppTheme.PopupCustom">
 
-        </activity>
+    </activity>
 
 
-    </application>
+</application>
 
 </manifest>
