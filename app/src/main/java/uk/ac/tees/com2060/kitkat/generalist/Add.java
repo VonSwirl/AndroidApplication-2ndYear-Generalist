@@ -80,8 +80,9 @@ public class Add extends AppCompatActivity {
         String timeTxt = hours + ":" + minutes;
         //Convert from human readable date to epoch
         try {
-            epochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateTxt).getTime() / 1000;
+            epochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateTxt).getTime();
             reminderTime = new java.text.SimpleDateFormat("HH:mm").parse(timeTxt).getTime();
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -143,6 +144,7 @@ public class Add extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //Long epochSave = epochDate * 1000;
                         Log.d("Database:", "Inserting values..");  //For personal testing
                         Log.d("DatabaseTest", "adding + " + catResult);
                         dh.addList(new ListInfo(name.getText().toString(), contents.getText().toString(), catResult, active, epochDate, checked, reminderTime));
@@ -231,7 +233,7 @@ public class Add extends AppCompatActivity {
         String dateTxt = day + "/" + month + "/" + year;
         //Convert from human readable date to epoch
         try {
-            epochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateTxt).getTime() / 1000;
+            epochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateTxt).getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }

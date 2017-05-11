@@ -100,8 +100,11 @@ public class Editing extends AppCompatActivity {
         contents.setText(dbCont);
 
 
+        //Converts the database epoch date to a user readable format.
+        String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate));
+
         //Converts the database epoch date to a user readable format. For date
-        String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate * 1000));
+        
         String[] dismantle = dateInString.split("/");
         String dayStr = dismantle[0];
         String monthStr = dismantle[1];
@@ -112,7 +115,7 @@ public class Editing extends AppCompatActivity {
         int year = Integer.parseInt(yearStr);
 
         //For time
-        String timeInString = new java.text.SimpleDateFormat("HH:mm").format(new java.util.Date(dbReminderTime)); //DO I NEED TO DIVIDE BY 10 or 100 or 1000?
+        String timeInString = new java.text.SimpleDateFormat("HH:mm").format(new java.util.Date(dbReminderTime)); 
         String[] dismatleT= timeInString.split(":");
         String hourStr = dismatleT[0];
         String minuteStr = dismatleT[1];
@@ -142,7 +145,9 @@ public class Editing extends AppCompatActivity {
 
                     @Override
                     public void onClick(View v) {
+
                         dh.updateByID(id, name.getText().toString(), contents.getText().toString(), catResult, dbEpochDate, dbReminderTime);
+
                         Toast.makeText(getApplicationContext(), "Saving", Toast.LENGTH_LONG).show();
                         returnName = ((EditText) findViewById(R.id.editTextName)).getText().toString(); //Get the current name
                         returnContents = ((EditText) findViewById(R.id.editTextContents)).getText().toString();
@@ -186,8 +191,10 @@ public class Editing extends AppCompatActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
 
-        //Sadly this is repeated. Could be put into a method to be called
-        String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate * 1000));
+//Sadly this is repeated. Could be put into a method to be called
+    
+        String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate));
+      
         String[] dismantle = dateInString.split("/");
         String dayStr = dismantle[0];
         String monthStr = dismantle[1];
@@ -235,7 +242,7 @@ public class Editing extends AppCompatActivity {
 
         //Convert from human readable date to epoch
         try {
-            dbEpochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateShow).getTime() / 1000;
+            dbEpochDate = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(dateShow).getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }
