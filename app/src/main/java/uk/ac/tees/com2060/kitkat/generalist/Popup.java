@@ -23,7 +23,7 @@ public class Popup extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) (width * .85), (int) (height * .75)); //Sets the size of the popup window
+        getWindow().setLayout((int) (width * .85), (int) (height * .60)); //Sets the size of the popup window
 
         final TextView viewContents = (TextView) findViewById(R.id.view_contents);
        // Button cnclBtn = (Button) findViewById(R.id.cancel_button);

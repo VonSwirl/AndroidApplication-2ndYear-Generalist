@@ -34,15 +34,16 @@
     <string name="time_due">Time Due:</string>
 
     <string-array name="categories">
-        <item>Shopping</item>
-        <item>Medicine</item>
-        <item>Work</item>
-        <item>Home</item>
-        <item>Birthdays</item>
-        <item>Custom</item>
+        <item>Shopping (Green)</item>
+        <item>Medicine (Blue)</item>
+        <item>Work (Red)</item>
+        <item>Home (Grey)</item>
+        <item>Birthdays (Yellow)</item>
+        <item>Custom (Cyan)</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_place_picker">Map</string>
+    <string name="generalist">DELETE DB BEFORE RUNNING!</string>
 
 
 </resources>

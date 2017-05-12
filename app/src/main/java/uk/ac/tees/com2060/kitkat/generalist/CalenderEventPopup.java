@@ -2,11 +2,11 @@ package uk.ac.tees.com2060.kitkat.generalist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -40,13 +40,13 @@ public class CalenderEventPopup extends AppCompatActivity {
     public CalenderEventPopup() {
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Database handling, getting all the items adding them to an array list
         dh = new DatabaseHandler(this);
-        final List<ListInfo> value = dh.getAll();
 
         setContentView(R.layout.activity_main_popup);
 
@@ -61,20 +61,15 @@ public class CalenderEventPopup extends AppCompatActivity {
         adapter = new PopListAdapter(this, R.layout.view_row, entries);
         lv.setAdapter(adapter);
 
-
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        //Sets the size of the popup window
-        getWindow().setLayout((int) (width * .85), (int) (height * .75));
+        getWindow().setLayout((int) (width * .85), (int) (height * .60)); //Sets the size of the popup window
 
         // SORT BY DATE UNCOMMENT
         //Collections.sort(value, new ChangeComparator());
-
-
     }
-
 
     private class PopListAdapter extends ArrayAdapter<ListInfo> {
 
@@ -99,8 +94,6 @@ public class CalenderEventPopup extends AppCompatActivity {
         //Used for getting the view and creating the buttons etc
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-
-            showList();
             ViewListActivity.ViewHolder mainViewholder = null;
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -127,17 +120,15 @@ public class CalenderEventPopup extends AppCompatActivity {
             mainViewholder.delBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "DELETE clicked @ " + position, Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getContext(), " Item Deleted " + position, Toast.LENGTH_SHORT).show();
                     ListInfo toRemove = mObjects.get(position);
 
-                    System.out.println("i am here " + toRemove.toString());
                     dh.deleteItem(toRemove.getID());
                     mObjects.remove(position);
 
                     Log.d("test", "delete at " + position);
-
                     adapter.notifyDataSetChanged();
+                    recreate();
                 }
             });
 

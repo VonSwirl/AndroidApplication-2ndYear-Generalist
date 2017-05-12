@@ -5,7 +5,6 @@ package uk.ac.tees.com2060.kitkat.generalist;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -23,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -202,18 +202,34 @@ public class ViewListActivity extends AppCompatActivity {
             mainViewholder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton Checkbutton, boolean checked) {
-                    if(Checkbutton.isChecked())
-                    {
-                        System.out.println("CheckBox ticked at " + position);
+                   /* switch (checked) {
+                        case checked:
+                        System.out.println("AAAAAAAAAA -CheckBox ticked at " + mObjects.get(position).getID());
                         dh.updateChecked(mObjects.get(position).getID(), 1); //Updated the checked box in the data base when the tickbox at position is pressed
+                        dh.close();
                         //Used to strike though the text when the button is pressed1
                         finalMainViewholder.title.setPaintFlags(finalMainViewholder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        break
+
+
+                    }*/
+
+
+
+                    if(Checkbutton.isChecked())
+                    {
+                        System.out.println("AAAAAAAAAA -CheckBox ticked at " + mObjects.get(position).getID());
+                        dh.updateChecked(mObjects.get(position).getID(), 1); //Updated the checked box in the data base when the tickbox at position is pressed
+                        dh.close();
+                        //Used to strike though the text when the button is pressed1
+                        //finalMainViewholder.title.setPaintFlags(finalMainViewholder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     }
                     else if (!Checkbutton.isChecked())
                     {
-                        System.out.println("CheckBox unticked at " + position);
+                        System.out.println("BBBBBBBBBB - CheckBox unticked at " + mObjects.get(position).getID());
                         dh.updateChecked(mObjects.get(position).getID(), 0); //Updated the checked box in the data base when the tickbox at position is pressed
-                        finalMainViewholder.title.setPaintFlags(finalMainViewholder.title.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                        dh.close();
+                        // finalMainViewholder.title.setPaintFlags(finalMainViewholder.title.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                     }
                 }
             });

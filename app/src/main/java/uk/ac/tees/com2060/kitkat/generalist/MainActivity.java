@@ -8,7 +8,6 @@ import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,15 +34,14 @@ import java.util.Objects;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MainActivity extends AppCompatActivity {
 
+
     CompactCalendarView myMainCalender;
     private AlertDialog.Builder aDialogBox;
     private Context calenderContext;
     DatabaseHandler dh;
-    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dh = new DatabaseHandler(this);
@@ -65,41 +64,14 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.home);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
+
         //Get a reference to the Button object in the layout (XML) file (the button that is linked on the screen)
 
         myMainCalender = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         myMainCalender.setUseThreeLetterAbbreviation(true);
 
-        //Adding Events to the calender Example
-        //Event ev1 = new Event(Color.RED, 1495292844000L, "Mums Birthday");
-        //myMainCalender.addEvent(ev1);
-        //ev1 = new Event(Color.GREEN, 1495465644000L, "Get Pills");
-        //myMainCalender.addEvent(ev1);
-        //ev1 = new Event(Color.YELLOW, 1496070444000L, "Book Flights");
-        // myMainCalender.addEvent(ev1);
+        populateCalenderWithEvents();
 
-//READ BELOW DONT DELETE THIS BLOCK----JAY
-//
-//           Adds an event to be drawn as an indicator in the calendar.
-//           If adding multiple events see {@link #addEvents(List)}} method.
-//          @param event to be added to the calendar
-//          @param shouldInvalidate true if the view should invalidate
-//
-//        public void addEvent(Event event, boolean shouldInvalidate){
-//            compactCalendarController.addEvent(event);
-//            if(shouldInvalidate){
-//                invalidate();
-//            }
-//        }
-//
-//
-//          Adds multiple events to the calendar and invalidates the view once all events are added.
-//
-//        public void addEvents(List<Event> events){
-//            compactCalendarController.addEvents(events);
-//            invalidate();
-//
-/// //As above
 
         myMainCalender.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -108,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
                 final List<ListInfo> value = dh.getAll();
                 boolean itemsExistsForDate = false;
                 Long milliseconds = (dateClicked).getTime();
-                System.out.println(" DATECLICKED ======== " + milliseconds);
 
                 // SORT BY DATE UNCOMMENT
                 //Collections.sort(value, new ChangeComparator());
@@ -116,17 +87,9 @@ public class MainActivity extends AppCompatActivity {
                 //Puts data into view list
                 for (ListInfo li : value) {
                     int active = li.getActive();
-                    System.out.println("DB DATE ============ " + li.getEpochDate());
+                    Long compareThisDate = compareEpochs(li.getEpochDate());
 
-                    Calendar tempDate = Calendar.getInstance();
-                    Long tempTemp = li.getEpochDate();
-                    tempDate.setTimeInMillis(tempTemp);
-                    tempDate.add(Calendar.MONTH, 1);
-                    Date toLong = tempDate.getTime();
-                    Long compareDates = (toLong).getTime();
-                    System.out.println("Compare Date  ===== " + compareDates);
-
-                    if (active == 1 && Objects.equals(compareDates, milliseconds)) {
+                    if (active == 1 && Objects.equals(compareThisDate, milliseconds)) {
                         entries.add(li);
                         itemsExistsForDate = true;
                     }
@@ -141,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
                     args.putSerializable("ARRAYLIST", (Serializable) entries);
                     i.putExtra("BUNDLE", args);
 
-
                     //Starts that activity
                     startActivity(i);
+                    onResume();
 
                 } else {
                     calenderContext = getApplicationContext();
@@ -177,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
 
@@ -186,8 +148,6 @@ public class MainActivity extends AppCompatActivity {
                 String formatted = format.format(firstDayOfNewMonth);
                 System.out.println(formatted);
                 name.setText(formatted);
-
-
             }
         });
 
@@ -203,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
                         //Starts that activity
                         startActivity(intent);
+                        onResume();
                     }
                 }
         );
@@ -220,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
                         //Starts that activity
                         startActivity(intent);
+
                     }
                 }
         );
@@ -233,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
                         //Links the class to the intended place to go
                         Intent intent = new Intent(context, MapsActivity.class);
 
-
                         //Starts that activity
                         startActivity(intent);
                     }
@@ -241,6 +202,70 @@ public class MainActivity extends AppCompatActivity {
         );
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateCalenderWithEvents();
+
+    }
+
+    public void populateCalenderWithEvents() {
+        final List<ListInfo> dbItems = dh.getAll();
+
+        //get return intent if so
+        //add it somewhere
+
+        for (ListInfo calEventPopulate : dbItems) {
+            int active = calEventPopulate.getActive();
+
+            if (active == 1) {
+                Long addEventThisDay = compareEpochs(calEventPopulate.getEpochDate());
+                //myMainCalender.addEvent(ev1);
+                //ev1 = new Event(Color.GREEN, 1495465644000L, "Get Pills");
+                String cata = calEventPopulate.getCategory();
+                int setEventColor;
+                switch (cata) {
+                    case "Shopping (Green)":
+                        setEventColor = Color.GREEN;
+                        break;
+                    case "Medicine (Blue)":
+                        setEventColor = Color.BLUE;
+                        break;
+                    case "Work (Red)":
+                        setEventColor = Color.RED;
+                        break;
+                    case "Home (Grey)":
+                        setEventColor = Color.GRAY;
+                        break;
+                    case "Birthdays (Yellow)":
+                        setEventColor = Color.YELLOW;
+                        break;
+                    case "Custom (Cyan)":
+                        setEventColor = Color.CYAN;
+                        break;
+                    default:
+                        setEventColor = Color.CYAN;
+                        break;
+                }
+                //Adding Events to the calender Example
+
+                Event addMeTooCalendar = new Event(setEventColor, addEventThisDay, "");
+                myMainCalender.addEvent(addMeTooCalendar);
+            }
+        }
+
+    }
+
+    public Long compareEpochs(Long tempLong) {
+        Calendar tempDate = Calendar.getInstance();
+        tempDate.setTimeInMillis(tempLong);
+        tempDate.add(Calendar.MONTH, 1);
+        Date toLong = tempDate.getTime();
+        Long compareDates = (toLong).getTime();
+        return compareDates;
+    }
+
     //COMMENT BLOCK BELOW ARE TO ASSIST WITH THE EPOCH CONVERSION
                 /*How to get the current epoch time in ...
                 final long datePicked = System.currentTimeMillis() / 1000;
@@ -250,4 +275,31 @@ public class MainActivity extends AppCompatActivity {
 
                 Convert from human readable date to epoch
                 long epoch = new java.text.SimpleDateFormat("MM/dd/yyyy").parse("01/01/1970").getTime() / 1000;*/
+
+    //myMainCalender.addEvent(ev1);
+    //ev1 = new Event(Color.YELLOW, 1496070444000L, "Book Flights");
+    // myMainCalender.addEvent(ev1);
+
+//READ BELOW DONT DELETE THIS BLOCK----JAY
+//
+//           Adds an event to be drawn as an indicator in the calendar.
+//           If adding multiple events see {@link #addEvents(List)}} method.
+//          @param event to be added to the calendar
+//          @param shouldInvalidate true if the view should invalidate
+//
+//        public void addEvent(Event event, boolean shouldInvalidate){
+//            compactCalendarController.addEvent(event);
+//            if(shouldInvalidate){
+//                invalidate();
+//            }
+//        }
+//
+//
+//          Adds multiple events to the calendar and invalidates the view once all events are added.
+//
+//        public void addEvents(List<Event> events){
+//            compactCalendarController.addEvents(events);
+//            invalidate();
+//
+/// //As above
 }
