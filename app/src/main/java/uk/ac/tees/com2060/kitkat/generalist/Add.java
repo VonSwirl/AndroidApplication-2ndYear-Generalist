@@ -5,10 +5,11 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,10 +23,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.sql.SQLOutput;
-import java.sql.Time;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -142,6 +139,7 @@ public class Add extends AppCompatActivity {
         //Takes the text from the required fields and creates a new database entry with that information
         svBtn.setOnClickListener(
                 new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onClick(View v) {
                         //Long epochSave = epochDate * 1000;
@@ -154,9 +152,10 @@ public class Add extends AppCompatActivity {
                         returnIntent.putExtra("updatedName", returnName);
                         returnIntent.putExtra("position", position);
                         setResult(RESULT_OK, returnIntent); //set the result and pass the intent with the values
+
+                        System.out.println("Reminder Time = " + reminderTime);
                         finish();
 
-                        System.out.println(reminderTime);
                     }
                 }
         );
