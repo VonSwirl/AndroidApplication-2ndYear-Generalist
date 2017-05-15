@@ -194,10 +194,11 @@ public class Add extends AppCompatActivity {
         if (id == 999) {
             return new DatePickerDialog(this, myDateListener, year, month, day);
         }
-        if(id == 998) {
+        if (id == 998) {
             return new TimePickerDialog(this, myTimeListener, hours, minutes, false);
         }
         return null;
+
     }
 
     private DatePickerDialog.OnDateSetListener myDateListener = new

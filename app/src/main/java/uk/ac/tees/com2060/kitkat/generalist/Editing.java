@@ -106,18 +106,18 @@ public class Editing extends AppCompatActivity {
         String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate));
 
         //Converts the database epoch date to a user readable format. For date
-        
+
         String[] dismantle = dateInString.split("/");
         String dayStr = dismantle[0];
         String monthStr = dismantle[1];
         String yearStr = dismantle[2];
         int day = Integer.parseInt(dayStr);
         int month = Integer.parseInt(monthStr);
-        month = month + 1;
+        month++;
         int year = Integer.parseInt(yearStr);
 
         //For time
-        String timeInString = new java.text.SimpleDateFormat("HH:mm").format(new java.util.Date(dbReminderTime)); 
+        String timeInString = new java.text.SimpleDateFormat("HH:mm").format(new java.util.Date(dbReminderTime));
         String[] dismatleT= timeInString.split(":");
         String hourStr = dismatleT[0];
         String minuteStr = dismatleT[1];
@@ -156,11 +156,14 @@ public class Editing extends AppCompatActivity {
                         returnContents = ((EditText) findViewById(R.id.editTextContents)).getText().toString();
                         Intent returnIntent = new Intent(); //Create a new return intent and pass the name and id
 
-                        //Returns intents once method has completed.
+                        //Returns intents once method has completed. Can this be done as a bundle for efficiency?
                         returnIntent.putExtra("updatedName", returnName);
                         returnIntent.putExtra("updatedContents", returnContents);
                         returnIntent.putExtra("id", id);
                         returnIntent.putExtra("arrayIndex", arrayIndex);
+                        returnIntent.putExtra("updatedDate", dbEpochDate);
+                        returnIntent.putExtra("updatedTime", dbReminderTime);
+
                         setResult(RESULT_OK, returnIntent); //set the result and pass the intent with the values
                         dh.close();
                         finish();
@@ -194,7 +197,7 @@ public class Editing extends AppCompatActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
 
-//Sadly this is repeated. Could be put into a method to be called
+        //Sadly this is repeated. Could be put into a method to be called
     
         String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate));
       
@@ -215,14 +218,14 @@ public class Editing extends AppCompatActivity {
         int minutes = Integer.parseInt(minuteStr);
 
 
-        if (id == 999) {
+        if(id == 999) {
             return new DatePickerDialog(this, myDateListener, year, month, day);
         }
-            if(id == 998) {
+        if(id == 998) {
                 return new TimePickerDialog(this, myTimeListener, hours, minutes, false);
         }
             return null;
-    }
+        }
 
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
                 @Override
@@ -251,9 +254,9 @@ public class Editing extends AppCompatActivity {
         }
     }
 
-    //Sets the
+    //Shows the time and adds a new value into the db
     private void showTime(int h, int m) {
-       // timeView.setText(new StringBuilder().append(h).append(":").append(m));
+
         int hours = h;
         int minutes = m;
 
