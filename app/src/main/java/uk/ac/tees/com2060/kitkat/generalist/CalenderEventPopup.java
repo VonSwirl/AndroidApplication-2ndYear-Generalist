@@ -2,6 +2,8 @@ package uk.ac.tees.com2060.kitkat.generalist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -64,6 +66,7 @@ public class CalenderEventPopup extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .85), (int) (height * .60)); //Sets the size of the popup window
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         // SORT BY DATE UNCOMMENT
         //Collections.sort(value, new ChangeComparator());
     }
