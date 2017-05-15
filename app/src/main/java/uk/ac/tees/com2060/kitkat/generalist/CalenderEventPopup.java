@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -31,7 +30,6 @@ import java.util.List;
 
 public class CalenderEventPopup extends AppCompatActivity {
 
-    final Context context = this;
     private PopListAdapter adapter;
     DatabaseHandler dh;
     public ArrayList<ListInfo> entries = new ArrayList<>();
@@ -66,7 +64,6 @@ public class CalenderEventPopup extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .85), (int) (height * .60)); //Sets the size of the popup window
-
         // SORT BY DATE UNCOMMENT
         //Collections.sort(value, new ChangeComparator());
     }
@@ -81,14 +78,6 @@ public class CalenderEventPopup extends AppCompatActivity {
             super(context, resource, objects);
             mObjects = objects;
             layout = resource;
-        }
-
-        public void showList() {
-            Iterator<ListInfo> li = mObjects.iterator();
-            for (int i = 0; i < mObjects.size(); i++) {
-                System.out.println("\n\nZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ == "
-                        + " list item " + mObjects.get(i).getName() + "  indexposition   " + i + "\nchecked: " + mObjects.get(i).getChecked());
-            }
         }
 
         //Used for getting the view and creating the buttons etc
@@ -128,7 +117,7 @@ public class CalenderEventPopup extends AppCompatActivity {
 
                     Log.d("test", "delete at " + position);
                     adapter.notifyDataSetChanged();
-                    recreate();
+                    //recreate();
                 }
             });
 
