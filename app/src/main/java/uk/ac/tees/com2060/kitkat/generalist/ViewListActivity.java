@@ -23,8 +23,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -166,6 +168,7 @@ public class ViewListActivity extends AppCompatActivity {
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
                 viewHolder.editBtn = (ImageButton) convertView.findViewById(R.id.list_item_editBtn);
                 viewHolder.delBtn = (ImageButton) convertView.findViewById(R.id.list_item_delBtn);
+                viewHolder.dateDue = (TextView) convertView.findViewById(R.id.list_item_datedue);
                 convertView.setTag(viewHolder);
             }
            mainViewholder = (ViewHolder) convertView.getTag();
@@ -202,19 +205,6 @@ public class ViewListActivity extends AppCompatActivity {
             mainViewholder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton Checkbutton, boolean checked) {
-                   /* switch (checked) {
-                        case checked:
-                        System.out.println("AAAAAAAAAA -CheckBox ticked at " + mObjects.get(position).getID());
-                        dh.updateChecked(mObjects.get(position).getID(), 1); //Updated the checked box in the data base when the tickbox at position is pressed
-                        dh.close();
-                        //Used to strike though the text when the button is pressed1
-                        finalMainViewholder.title.setPaintFlags(finalMainViewholder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                        break
-
-
-                    }*/
-
-
 
                     if(Checkbutton.isChecked())
                     {
@@ -242,9 +232,32 @@ public class ViewListActivity extends AppCompatActivity {
 
             }
 
+            //Put epoch values into correct string format and display for due date
+            String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(mObjects.get(position).getEpochDate()));
+            String timeInString = new java.text.SimpleDateFormat("HH:mm").format(new java.util.Date(mObjects.get(position).getReminderTime()));
+
+            mainViewholder.dateDue.setText("DateDue: " + getCorrectDate(dateInString) + " " + timeInString);
             mainViewholder.title.setText(getItem(position).toString());
+
             return convertView;
         }
+    }
+
+    //This method needs to be used because string needs to be dismantled and month incremented
+    public StringBuilder getCorrectDate(String dateNeeded){
+
+        String[] dismantle = dateNeeded.split("/");
+        String dayStr = dismantle[0];
+        String monthStr = dismantle[1];
+        String yearStr = dismantle[2];
+        int day = Integer.parseInt(dayStr);
+        int month = Integer.parseInt(monthStr);
+        month++;
+        int year = Integer.parseInt(yearStr);
+        StringBuilder date = (new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
+
+        return date;
     }
 
     //Gets the result from a returned activity
@@ -256,9 +269,13 @@ public class ViewListActivity extends AppCompatActivity {
             String updatedContents = data.getStringExtra("updatedContents"); //Get the updated contents from the edit class
             int id = data.getIntExtra("id", 0); //Get the current position it was editing
             int arrayIndex = data.getIntExtra("arrayIndex", 0);
+            long updatedDate = data.getLongExtra("updatedDate",0);
+            long updatedTime = data.getLongExtra("updatedTime",0);
 
             adapter.mObjects.get(arrayIndex).setName(updatedName); //Set the new name where the current position is
             adapter.mObjects.get(arrayIndex).setContents(updatedContents);
+            adapter.mObjects.get(arrayIndex).setEpochDate(updatedDate);
+            adapter.mObjects.get(arrayIndex).setReminderTime(updatedTime);
 
             adapter.notifyDataSetChanged(); //update the viewlist
         }
@@ -270,5 +287,6 @@ public class ViewListActivity extends AppCompatActivity {
         ImageButton editBtn;
         ImageButton delBtn;
         CheckBox checkBox;
+        TextView dateDue;
     }
 }

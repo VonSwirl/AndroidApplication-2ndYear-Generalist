@@ -140,7 +140,7 @@
 
         <TextView
             android:id="@+id/viewTimeAdd"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:onClick="setTime"
             android:text=""
