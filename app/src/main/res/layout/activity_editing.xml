@@ -127,15 +127,6 @@
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/editTextName" />
 
-        <TextView
-            android:id="@+id/viewTimeEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="11dp"
-            android:layout_toEndOf="@+id/timeTitle"
-            android:onClick="setTime"
-            android:text=""
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <TextView
             android:id="@+id/timeTitle"
@@ -170,6 +161,18 @@
         android:layout_marginStart="83dp"
         android:layout_below="@+id/viewDateedit"
         android:layout_alignStart="@+id/relativeLayout" />
+
+    <TextView
+        android:id="@+id/viewTimeEdit"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:onClick="setTime"
+        android:text=""
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_marginEnd="43dp"
+        android:layout_alignBaseline="@+id/relativeLayout"
+        android:layout_alignBottom="@+id/relativeLayout"
+        android:layout_toStartOf="@+id/homeButton" />
 
     <TextView
         android:id="@+id/viewDateedit"
