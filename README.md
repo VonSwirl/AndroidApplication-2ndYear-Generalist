@@ -1,6 +1,5 @@
 # Generalist
 
-===========================================================================
 Terms and Conditions (Compact Calendar View)
 The MIT License (MIT)
 
