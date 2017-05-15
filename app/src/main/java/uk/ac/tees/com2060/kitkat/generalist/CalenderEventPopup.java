@@ -66,7 +66,7 @@ public class CalenderEventPopup extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .85), (int) (height * .60)); //Sets the size of the popup window
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //Stops the background clipping white
         // SORT BY DATE UNCOMMENT
         //Collections.sort(value, new ChangeComparator());
     }
