@@ -113,7 +113,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true" />
 
-
+        <TextView
             android:id="@+id/viewDateedit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -126,7 +126,6 @@
             android:onClick="setDate"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem" />
-
 
         <TextView
             android:id="@+id/dateTitle"
