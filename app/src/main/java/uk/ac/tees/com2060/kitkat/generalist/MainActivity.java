@@ -64,14 +64,12 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.home);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-
         //Get a reference to the Button object in the layout (XML) file (the button that is linked on the screen)
 
         myMainCalender = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         myMainCalender.setUseThreeLetterAbbreviation(true);
-
         populateCalenderWithEvents();
-
+        myMainCalender.invalidate();
 
         myMainCalender.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -106,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //Starts that activity
                     startActivity(i);
+                    myMainCalender.invalidate();
                     onResume();
 
                 } else {
@@ -163,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
                         //Starts that activity
                         startActivity(intent);
+                        myMainCalender.invalidate();
                         onResume();
                     }
                 }
@@ -181,7 +181,8 @@ public class MainActivity extends AppCompatActivity {
 
                         //Starts that activity
                         startActivity(intent);
-
+                        myMainCalender.invalidate();
+                        onResume();
                     }
                 }
         );
@@ -197,10 +198,11 @@ public class MainActivity extends AppCompatActivity {
 
                         //Starts that activity
                         startActivity(intent);
+                        myMainCalender.invalidate();
+                        onResume();
                     }
                 }
         );
-
     }
 
     @Override
@@ -252,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Event addMeTooCalendar = new Event(setEventColor, addEventThisDay, "");
                 myMainCalender.addEvent(addMeTooCalendar);
+                myMainCalender.invalidate();
             }
         }
 

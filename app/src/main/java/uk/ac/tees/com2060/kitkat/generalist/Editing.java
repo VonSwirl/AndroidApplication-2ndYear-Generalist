@@ -118,7 +118,7 @@ public class Editing extends AppCompatActivity {
 
         //For time
         String timeInString = new java.text.SimpleDateFormat("HH:mm").format(new java.util.Date(dbReminderTime));
-        String[] dismatleT= timeInString.split(":");
+        String[] dismatleT = timeInString.split(":");
         String hourStr = dismatleT[0];
         String minuteStr = dismatleT[1];
 
@@ -190,7 +190,7 @@ public class Editing extends AppCompatActivity {
     }
 
     @SuppressWarnings("deprecation")
-    public void setTime(View view){
+    public void setTime(View view) {
         showDialog(998);
     }
 
@@ -198,9 +198,9 @@ public class Editing extends AppCompatActivity {
     protected Dialog onCreateDialog(int id) {
 
         //Sadly this is repeated. Could be put into a method to be called
-    
+
         String dateInString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dbEpochDate));
-      
+
         String[] dismantle = dateInString.split("/");
         String dayStr = dismantle[0];
         String monthStr = dismantle[1];
@@ -210,36 +210,34 @@ public class Editing extends AppCompatActivity {
         int year = Integer.parseInt(yearStr);
 
         String timeInString = new java.text.SimpleDateFormat("HH:mm").format(new java.util.Date(dbReminderTime)); //DO I NEED TO DIVIDE BY 10 or 100 or 1000?
-        String[] dismatleT= timeInString.split(":");
+        String[] dismatleT = timeInString.split(":");
         String hourStr = dismatleT[0];
         String minuteStr = dismatleT[1];
-
         int hours = Integer.parseInt(hourStr);
         int minutes = Integer.parseInt(minuteStr);
 
-
-        if(id == 999) {
+        if (id == 999) {
             return new DatePickerDialog(this, myDateListener, year, month, day);
         }
-        if(id == 998) {
-                return new TimePickerDialog(this, myTimeListener, hours, minutes, false);
+        if (id == 998) {
+            return new TimePickerDialog(this, myTimeListener, hours, minutes, false);
         }
-            return null;
-        }
+        return null;
+    }
 
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker arg0, int year, int month, int day) {
-                    showDate(year, month, day);
-                }
-            };
+        @Override
+        public void onDateSet(DatePicker arg0, int year, int month, int day) {
+            showDate(year, month, day);
+        }
+    };
 
-        private TimePickerDialog.OnTimeSetListener myTimeListener = new TimePickerDialog.OnTimeSetListener(){
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                showTime(hourOfDay, minute);
-            }
-        };
+    private TimePickerDialog.OnTimeSetListener myTimeListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            showTime(hourOfDay, minute);
+        }
+    };
 
     private void showDate(int y, int m, int d) {
         dateView.setText(new StringBuilder().append(d).append("/")
@@ -268,5 +266,4 @@ public class Editing extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 }
