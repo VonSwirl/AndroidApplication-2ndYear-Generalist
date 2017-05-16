@@ -1,14 +1,18 @@
 package uk.ac.tees.com2060.kitkat.generalist;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -203,6 +207,35 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+
+    public void sendNotification(View view) {
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this);
+
+        Button notifBut = (Button) findViewById(R.id.notification_icon);
+
+        notifBut.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Links the class to the intended place to go
+
+                        mBuilder.setSmallIcon(R.drawable.general);
+                        mBuilder.setContentTitle("My notification");
+                        mBuilder.setContentText("Hello World!");
+
+                        NotificationManager mNotificationManager =
+
+                                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                        mNotificationManager.notify(001, mBuilder.build());
+                    }
+                }
+        );
+
     }
 
     @Override
