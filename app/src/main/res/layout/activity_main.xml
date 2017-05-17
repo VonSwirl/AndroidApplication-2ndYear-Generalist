@@ -94,14 +94,6 @@
         android:layout_alignBottom="@+id/addButton"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Do it!"
-        android:id="@+id/notification_icon"
-        android:onClick="sendNotification"/>
-
-
     <TextView
         android:id="@+id/main_info"
         android:layout_width="wrap_content"
